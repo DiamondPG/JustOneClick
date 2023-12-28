@@ -1,0 +1,35 @@
+A0101A: JSON file not aquired correctly
+A0201: JSON Serialization Failure in the JSON creation process
+A0301A: File Path Not Found
+A0302B: File Corrupted / Formatted Incorrectly : NOT IMPLEMENTED
+A0401: Error assigning data to ListBoxes on GUI
+C0101: Initial Serialization Failure in JSON Test Sequence
+C0102: File Write Failure in JSON Test Sequence. Refer to Page __ on how to fix this issue.
+C0103: File Read was Unsuccessful in JSON Test Sequence
+C0104: JSON Deserialization Error in JSON Test Sequence
+
+Formatting of Error Codes:
+
+Sample Code "A0301A"
+
+The first "A" indicates the process where the error occured
+"03" indicates where in loading process the error occured
+"01" indicates the error that occured
+The final "A" indicates the type of error, if applicable.
+
+For example:
+
+A: JSON Handling Mishap
+03: Text
+01: File Path
+A: Not found
+
+
+Decoding Character 1:
+
+A: JSON Handling Mishap - Read Process
+B: JSON Handling Mishap - Write Process
+C: JSON Handling Mishap - Test Process
+
+Decoding Characters 2-3:
+01: First 

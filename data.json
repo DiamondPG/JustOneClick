@@ -1,0 +1,31 @@
+[
+  {
+    "ID": "1",
+    "Name": "Test",
+    "Delay": 5,
+    "Applications": [
+      {
+        "ID": "1",
+        "Name": "Placeholder",
+        "Path": "C:\\placeholder.placeholder",
+        "Favicon": "fallbackimage.png",
+        "isBrowserSource": false
+      }
+     
+    ]
+  },
+  {
+    "ID": "2",
+    "Name": "Test2",
+    "Delay": 5,
+    "Applications": [
+      {
+        "ID": "1",
+        "Name": "Google",
+        "Path": "google.com",
+        "Favicon": "fallbackimage.png",
+        "isBrowserSource": true
+      }
+    ]
+  }
+]

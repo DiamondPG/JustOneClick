@@ -1,0 +1,31 @@
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.csproj.AssemblyReference.cache
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\FileBrowser.baml
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\InputBox.baml
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\FileBrowser.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\InputBox.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\MainWindow.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\App.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click_MarkupCompile.cache
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click_MarkupCompile.lref
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Just One Click.exe
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Just One Click.deps.json
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Just One Click.runtimeconfig.json
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Just One Click.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Just One Click.pdb
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Microsoft.Win32.SystemEvents.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\System.Drawing.Common.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\MainWindow.baml
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.g.resources
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.AssemblyInfoInputs.cache
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.AssemblyInfo.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.csproj.CoreCompileInputs.cache
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.csproj.CopyComplete
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\refint\Just One Click.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.pdb
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\Just One Click.genruntimeconfig.cache
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows\ref\Just One Click.dll

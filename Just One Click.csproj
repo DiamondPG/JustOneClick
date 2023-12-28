@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+    <RootNamespace>Just_One_Click</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;Beta</Configurations>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="fallbackimage.png" />
+    <None Remove="icon.ico" />
+    <None Remove="images\add.png" />
+    <None Remove="images\delete.png" />
+    <None Remove="images\duplicate.png" />
+    <None Remove="images\globe.png" />
+    <None Remove="images\profile.png" />
+    <None Remove="images\rename.png" />
+    <None Remove="images\text.png" />
+    <None Remove="images\timer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\fallbackimage.png" />
+    <Resource Include="icon.ico" />
+    <Resource Include="images\add.png" />
+    <Resource Include="images\delete.png" />
+    <Resource Include="images\duplicate.png" />
+    <Resource Include="images\globe.png" />
+    <Resource Include="images\profile.png" />
+    <Resource Include="images\rename.png" />
+    <Resource Include="images\text.png" />
+    <Resource Include="images\timer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>
