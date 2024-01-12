@@ -3,6 +3,7 @@
     "ID": "1",
     "Name": "Test",
     "Delay": 5,
+    "DarkModeEnabled": true,
     "Applications": [
       {
         "ID": "1",

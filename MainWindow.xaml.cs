@@ -61,6 +61,7 @@ namespace Just_One_Click
         }
         int delay = 5;
         ImageSource FaviconSource;
+        bool isFirstBoot = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +71,7 @@ namespace Just_One_Click
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             string path = Directory.GetCurrentDirectory() + "/data.json";
             string spath = Directory.GetCurrentDirectory() + "/sdata.json";
+            
             var test = new                              //Test JSON string in indented form, 1 command until line 93
             {
                 Name = "Test",
@@ -99,7 +101,7 @@ namespace Just_One_Click
             string SerializedJSON = "";
             string ReserializedJSON = "";
             var DeserializedJSON = new List<Profile>();
-            
+
             void TestJSONWrite()
             {
                 Profile profile = new Profile();            //unnecesssary?
@@ -122,10 +124,7 @@ namespace Just_One_Click
                 }
                 try
                 {
-                    // Check the validity of paths before writing to the file
-                    //CheckAndColorInvalidPaths(test);
 
-                    //CreateFile(SerializedJSON, savePath);
                 }
                 catch
                 {
@@ -150,7 +149,7 @@ namespace Just_One_Click
                 catch
                 {
                     Write("Error C0104. Deserialization Failure");
-                    
+
                     testExitCode = 4;
                 }
                 try
@@ -168,7 +167,7 @@ namespace Just_One_Click
                 }
                 else
                 {
-                    Write("Test Failed at step " + testExitCode);
+                    Write("");
                     Log(SerializedJSON);
                     Log("Reserialized:");
                     Log(ReserializedJSON);
@@ -178,77 +177,11 @@ namespace Just_One_Click
 
 
 
+
             TestJSONWrite();
-
-            if (!File.Exists(saveFile) || string.IsNullOrEmpty(File.ReadAllText(saveFile)))
-            {
-                // If the file doesn't exist or is empty, write a placeholder JSON file
-                WritePlaceholderJson(saveFile);
-            }
-            Apps apps = new Apps();
-            TestIMG.Source = FaviconSource;
-            if (File.Exists(saveFile))
-            {
-                string json = "";
-                var djson = new List<Profile>();
-                try
-                {
-
-                    Clipboard.SetText(saveFile);
-                    json = File.ReadAllText(saveFile);
-
-                    djson = JsonConvert.DeserializeObject<List<Profile>>(json);
-
-                }
-                catch
-                {
-                    Write("Error Code A0101. JSON deserialization failure");
-                }
-                Profile profile = new Profile();
-
-
-                string ajson = JsonConvert.SerializeObject(djson, Formatting.Indented);
-                try
-                {
-                    Profiles.DataContext = djson;
-                    AppsLB.DataContext = djson;
-                    AppsLB.ItemsSource = djson;
-                    Log($"AJSON: {ajson}");
-                    Log("Data Found");
-                    AppsLB.Items.Refresh();
-                    Profiles.Items.Refresh();
-                    AppsLB.Items.Refresh();
-
-                }
-                catch
-                {
-                    Write("Error A0401. Error Setting Data Source");
-                }
-            }
-            else
-            {
-                Write("Data Not Found");
-                Write("Error Code: A0301A. File Not found");
-
-
-            }
-            //Clipboard.SetText(log);
-
-            void CreateFile(string serOBJ, string path)
-            {
-                string saveFile = System.IO.Path.Combine(path + "savedata.json");
-
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                    Write("Directory not found, New directory created at:" + path);
-                }
-                StreamWriter writer = new StreamWriter(saveFile);
-                writer.Write(serOBJ);
-            }
-            AppsLB.ItemsSource = null;
-            AppsLB.Items.Refresh();
+            Initialize();
         }
+            
 
         
         
@@ -285,11 +218,92 @@ namespace Just_One_Click
         }
 
 
-
-
-        private void SaveBTN_Click(object sender, RoutedEventArgs e)
+        public void Initialize()
         {
+            
+            string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
+            savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
+            string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
+            if (isFirstBoot == true)
+            {
+                WritePlaceholderJson(saveFile);
+                isFirstBoot = false;
+            }
+            if (!File.Exists(saveFile) || string.IsNullOrEmpty(File.ReadAllText(saveFile)))
+            {
+                // If the file doesn't exist or is empty, write a placeholder JSON file
+                WritePlaceholderJson(saveFile);
+            }
+            Apps apps = new Apps();
+            if (File.Exists(saveFile))
+            {
+                string json = "";
+                var djson = new List<Profile>();
+                try
+                {
 
+                    Clipboard.SetText(saveFile);
+                    json = File.ReadAllText(saveFile);
+
+                    djson = JsonConvert.DeserializeObject<List<Profile>>(json);
+
+                }
+                catch
+                {
+                    Write("Error Code A0101. JSON deserialization failure");
+                    MessageBox.Show("Error Code A0101: JSON deserialization failure", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                Profile profile = new Profile();
+
+
+                string ajson = JsonConvert.SerializeObject(djson, Formatting.Indented);
+                try
+                {
+                    Profiles.DataContext = djson;
+                    AppsLB.DataContext = djson;
+                    AppsLB.ItemsSource = djson;
+                    Log($"AJSON: {ajson}");
+                    Log("Data Found");
+                    AppsLB.Items.Refresh();
+                    Profiles.Items.Refresh();
+                    AppsLB.Items.Refresh();
+
+                }
+                catch
+                {
+                    Write("Error A0401. Error Setting Data Source");
+                    MessageBox.Show("Error Code A0401: Error Setting Data Source", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                Write("Data Not Found");
+                MessageBox.Show("Error Code A0301: Save File Not Found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            //Clipboard.SetText(log);
+
+            void CreateFile(string serOBJ, string path)
+            {
+                string saveFile = System.IO.Path.Combine(path + "savedata.json");
+
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                    Write("Directory not found, New directory created at:" + path);
+                }
+                StreamWriter writer = new StreamWriter(saveFile);
+                writer.Write(serOBJ);
+            }
+            AppsLB.ItemsSource = null;
+            AppsLB.Items.Refresh();
+        }
+    
+
+    private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settings = new SettingsWindow();
+            settings.Show();
 
 
 
@@ -450,7 +464,7 @@ namespace Just_One_Click
 
 
 
-        void WritePlaceholderJson(string filePath)
+        public void WritePlaceholderJson(string filePath)
         {
             var placeholderData = new List<Profile>
     {
@@ -544,7 +558,7 @@ namespace Just_One_Click
                     encoder.Save(stream);
                 }
 
-                return Convert.ToString(bitmapSource);
+                return tempIconPath;
             }
             catch (Exception ex)
             {
@@ -660,6 +674,15 @@ namespace Just_One_Click
             return newUrl;
         }
         
+        
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            AppsLB.Items.Refresh();
+            Profiles.Items.Refresh();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Initialize();
+        }
         public class Profile
         {
             public string ID { get; set; }
