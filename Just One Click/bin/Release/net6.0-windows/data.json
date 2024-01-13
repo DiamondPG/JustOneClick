@@ -1,0 +1,32 @@
+[
+  {
+    "ID": "1",
+    "Name": "Test",
+    "Applications": [
+      {
+        "ID": "1",
+        "Name": "XP11",
+        "Path": "C:\\Program Files\\X-Plane 11\\X-Plane.exe",
+        "Favicon": "hi"
+      },
+      {
+        "ID": "2",
+        "Name": "XPilot",
+        "Path": "C:\\Program Files\\X-Plane 11\\X-Plane.exe",
+        "Favicon": "seriously"
+      }
+    ]
+  },
+  {
+    "ID": "2",
+    "Name": "Test2",
+    "Applications": [
+      {
+        "ID": "1",
+        "Name": "XP12",
+        "Path": "C:\\Program Files\\X-Plane 11\\X-Plane.exe",
+        "Favicon": "ballsack"
+      }
+    ]
+  }
+]
