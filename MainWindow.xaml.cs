@@ -71,7 +71,7 @@ namespace Just_One_Click
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
             string path = Directory.GetCurrentDirectory() + "/data.json";
             string spath = Directory.GetCurrentDirectory() + "/sdata.json";
-            
+
             var test = new                              //Test JSON string in indented form, 1 command until line 93
             {
                 Name = "Test",
@@ -107,8 +107,6 @@ namespace Just_One_Click
                 Profile profile = new Profile();            //unnecesssary?
                 profile.Name = "Test";                      //.
                 profile.ID = "1";                           //..
-
-
 
                 var ReadJSON = "";
                 int testExitCode = 0;
@@ -181,10 +179,10 @@ namespace Just_One_Click
             TestJSONWrite();
             Initialize();
         }
-            
 
-        
-        
+
+
+
         private async void LaunchBTN_Click(object sender, RoutedEventArgs e)
         {
             Log("Launch Clicked");
@@ -220,7 +218,7 @@ namespace Just_One_Click
 
         public void Initialize()
         {
-            
+
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
@@ -298,9 +296,9 @@ namespace Just_One_Click
             AppsLB.ItemsSource = null;
             AppsLB.Items.Refresh();
         }
-    
 
-    private void Settings_Click(object sender, RoutedEventArgs e)
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
@@ -348,18 +346,26 @@ namespace Just_One_Click
             {
                 if (AppsLB.SelectedItem is Apps selectedApp)
                 {
-                    // Remove the selected app from the profile's Applications list
-                    selectedProfile.Applications.Remove(selectedApp);
+                    //if () {
+                        // Confirm with the user before deleting the app
+                        MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the application '{selectedApp.Name}' from the profile '{selectedProfile.Name}'?",
+                                                                  "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                    // Update the ListBox's ItemsSource to reflect the changes
-                    AppsLB.ItemsSource = selectedProfile.Applications;
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            // Remove the selected app from the profile's Applications list
+                            selectedProfile.Applications.Remove(selectedApp);
 
-                    // Save the updated data to the JSON file (you need to implement the save logic)
-                    SaveDataToJson();
-                    AppsLB.Items.Refresh();
+                            // Update the ListBox's ItemsSource to reflect the changes
+                            AppsLB.ItemsSource = selectedProfile.Applications;
+
+                            // Save the updated data to the JSON file (you need to implement the save logic)
+                            SaveDataToJson();
+                            AppsLB.Items.Refresh();
+                        }
+                    //}
                 }
             }
-
         }
 
         private void AddMenuItem_Click(object sender, RoutedEventArgs e)
@@ -386,6 +392,59 @@ namespace Just_One_Click
                 AppsLB.Items.Refresh();
             }
         }
+        private void AddProfile_Click(object sender, RoutedEventArgs e)
+        {
+            string newProfileName = "New Profile";
+
+            // Create a new profile
+            Profile newProfile = new Profile
+            {
+                ID = Guid.NewGuid().ToString(),
+                Name = newProfileName,
+                Delay = 5, // You can set default values here
+                Applications = new List<Apps>() // Initialize the Applications list
+            };
+
+            // Add the new profile to the existing data
+            if (Profiles.ItemsSource is List<Profile> profileList)
+            {
+                profileList.Add(newProfile);
+
+                // Refresh the ListBox's ItemsSource to reflect the changes
+                Profiles.ItemsSource = profileList;
+
+                // Save the updated data to the JSON file
+                SaveDataToJson();
+                Profiles.Items.Refresh();
+            }
+        }
+
+        private void DeleteProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (Profiles.SelectedItem is Profile selectedProfile)
+            {
+                // Confirm with the user before deleting the profile
+                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the profile '{selectedProfile.Name}'?",
+                                                          "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    // Remove the selected profile from the existing data
+                    if (Profiles.ItemsSource is List<Profile> profileList)
+                    {
+                        profileList.Remove(selectedProfile);
+
+                        // Refresh the ListBox's ItemsSource to reflect the changes
+                        Profiles.ItemsSource = profileList;
+
+                        // Save the updated data to the JSON file
+                        SaveDataToJson();
+                        Profiles.Items.Refresh();
+                    }
+                }
+            }
+        }
+    
         private void RenameMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (Profiles.SelectedItem is Profile selectedProfile)
@@ -422,6 +481,11 @@ namespace Just_One_Click
             }
 
             return newName;
+        }
+        private string PromptForFaviconPath()
+        {
+            InputBox inputBox = new InputBox("Enter Path to PNG image", "Change Favicon Path");
+            return inputBox.ResponseText;
         }
 
         private string BrowseForFile()
@@ -462,6 +526,24 @@ namespace Just_One_Click
 
         }
 
+        private void RenameProfile_Click(object sender, RoutedEventArgs e)
+        {
+            if (Profiles.SelectedItem is Profile selectedProfile)
+            {
+                
+                    // Prompt the user for a new name (you can use an input dialog or another method)
+                string newName = PromptForNewName(selectedProfile.Name);
+
+                // Update the selected app's name
+                selectedProfile.Name = newName;
+
+                Profiles.Items.Refresh();
+
+                    // Save the updated data to the JSON file
+                    SaveDataToJson();
+            }
+            
+        }
 
 
         public void WritePlaceholderJson(string filePath)
@@ -519,12 +601,37 @@ namespace Just_One_Click
                 Write($"Error saving data: {ex.Message}");
             }
         }
-        BitmapSource bitmapSource;
         private void ChangeFavicon_Click(object sender, RoutedEventArgs e)
         {
             if (AppsLB.SelectedItem is Apps selectedApp)
             {
-                string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                // Show a file picker dialog for selecting the PNG file
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Filter = "PNG Files (*.png)|*.png|All Files (*.*)|*.*"
+                };
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    // Set the Favicon property to the selected file path
+                    selectedApp.Favicon = openFileDialog.FileName;
+
+                    // Refresh the ListBox to reflect the changes
+                    AppsLB.Items.Refresh();
+
+                    // Save the updated data to the JSON file
+                    SaveDataToJson();
+                }
+            }
+        }
+
+
+        BitmapSource bitmapSource;
+        private void ResetFavicon_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppsLB.SelectedItem is Apps selectedApp)
+            {
+                string newFaviconPath = ExtractFavicon(selectedApp.Path); // UNUSED FUNCTION
 
                 if (newFaviconPath != null)
                 {
@@ -549,7 +656,7 @@ namespace Just_One_Click
                 string tempFolderPath = System.IO.Path.GetTempPath();
                 string tempIconPath = System.IO.Path.Combine(tempFolderPath, "ExtractedFavicon.png");
                 Apps app = new Apps();
-                app.Favicon = bitmapSource;
+                
                 AppsLB.Items.Refresh();
                 using (FileStream stream = new FileStream(tempIconPath, FileMode.Create))
                 {
@@ -663,7 +770,7 @@ namespace Just_One_Click
             // For simplicity, this example uses MessageBox, but it's not suitable for entering URLs.
             string newUrl = "https://www.example.com"; // Default to a placeholder URL
 
-            InputBox inputBox = new InputBox(prompt, "Add Browser Source", "");
+            InputBox inputBox = new InputBox(prompt, "Add URL", "");
             if (inputBox.ShowDialog() == true)
             {
                 // User clicked OK, update the newUrl
@@ -696,7 +803,7 @@ namespace Just_One_Click
             public string ID { get; set; }
             public string Name { get; set; }
             public string Path { get; set; }
-            public BitmapSource Favicon { get; set; }
+            public string Favicon { get; set; }
             public bool isBrowserSource { get; set; }
 
 

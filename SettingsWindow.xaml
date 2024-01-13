@@ -3,18 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Settings" Height="300" Width="400"
         x:Name="Window"
-        Background="White">
+        Background="#28282b">
     <Grid>
         <!-- Add your settings UI controls here -->
         <StackPanel Margin="5">
-            <Label x:Name="SettingsHeader" Content="General Settings" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBlock x:Name="PathHeader" TextAlignment="Center" Text="Path to Preferred Text Editor"/>
+            <Label x:Name="SettingsHeader" Foreground="White" Content="General Settings" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock x:Name="PathHeader" Foreground="White" TextAlignment="Center" Text="Path to Preferred Text Editor"/>
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="Path" Width="345" Margin="5,0,0,0"/>
                 <Button x:Name="FileBrowserButton" Width="24" Content="..." Click="FileBrowserDialog"/>
             </StackPanel>
-            <CheckBox Content="Dark Mode" x:Name="DarkModeCheckbox" Margin="0,5,0,0" IsChecked="{Binding DarkModeEnabled}"/>
-
+            <CheckBox Content="Dark Mode" Foreground="White" x:Name="DarkModeCheckbox" Margin="0,5,0,0" IsChecked="{Binding DarkModeEnabled}"/>
+            <CheckBox Content="Ask for Confirmation when deleting Profiles or Apps" Foreground="White" x:Name="ConfirmationCheckbox" Margin="0,5,0,0" IsChecked="{Binding DeleteConfirmation}"/>
             <Button x:Name="SaveBTN" Content="Save" Click="btnSave_Click" Margin="0,10,0,0"/>
             <Button x:Name="ResetButton" Content="Reset Save File" Click="ResetClick" Margin="0,10,0,0"/>
         </StackPanel>
