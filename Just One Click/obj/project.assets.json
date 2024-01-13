@@ -37,6 +37,19 @@
           }
         }
       },
+      "Octokit/9.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Octokit.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Octokit.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Drawing.Common/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -124,6 +137,20 @@
         "packageIcon.png"
       ]
     },
+    "Octokit/9.1.0": {
+      "sha512": "aIxATAhMWn3IquZsoho8yK12MDU81YhexLWLGDoCp1vhJP7Z23Pu5JBEkNaTIkl9KqALJPqGLN1an7YfA7BhvA==",
+      "type": "package",
+      "path": "octokit/9.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Octokit.dll",
+        "lib/netstandard2.0/Octokit.xml",
+        "octokit.9.1.0.nupkg.sha512",
+        "octokit.nuspec",
+        "octokit.png"
+      ]
+    },
     "System.Drawing.Common/8.0.0": {
       "sha512": "JkbHJjtI/dWc5dfmEdJlbe3VwgZqCkZRtfuWFh5GOv0f+gGCfBtzMpIVkmdkj2AObO9y+oiOi81UGwH3aBYuqA==",
       "type": "package",
@@ -168,6 +195,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows10.0.22621": [
       "Newtonsoft.Json >= 13.0.3",
+      "Octokit >= 9.1.0",
       "System.Drawing.Common >= 8.0.0"
     ]
   },
@@ -213,6 +241,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
+          },
+          "Octokit": {
+            "target": "Package",
+            "version": "[9.1.0, )"
           },
           "System.Drawing.Common": {
             "target": "Package",

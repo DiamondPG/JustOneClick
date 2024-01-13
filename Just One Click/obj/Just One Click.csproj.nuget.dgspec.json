@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "Octokit": {
+              "target": "Package",
+              "version": "[9.1.0, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[8.0.0, )"

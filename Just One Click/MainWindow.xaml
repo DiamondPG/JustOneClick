@@ -130,7 +130,7 @@
                     </MenuItem>
                     <MenuItem Header="Change Path" Click="ChangePathMenuItem_Click">
                         <MenuItem.Icon>
-                            <Image/>
+                            <Image Width="16" Height="16" Source="images/path.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
@@ -237,7 +237,7 @@
                     </MenuItem>
                     <MenuItem Header="Change Path" Click="ChangePathMenuItem_Click">
                         <MenuItem.Icon>
-                            <Image/>
+                            <Image Width="16" Height="16" Source="images/path.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Header="Change Favicon" Click="ChangeFavicon_Click">

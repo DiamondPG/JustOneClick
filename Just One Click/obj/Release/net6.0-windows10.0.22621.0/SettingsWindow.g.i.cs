@@ -125,7 +125,7 @@ namespace Just_One_Click {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Just One Click;V1.0.0.0;component/settingswindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Just One Click;component/settingswindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SettingsWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

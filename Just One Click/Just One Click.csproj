@@ -18,7 +18,9 @@
     <None Remove="images\add.png" />
     <None Remove="images\delete.png" />
     <None Remove="images\duplicate.png" />
+    <None Remove="images\favicon.png" />
     <None Remove="images\globe.png" />
+    <None Remove="images\path.png" />
     <None Remove="images\profile.png" />
     <None Remove="images\rename.png" />
     <None Remove="images\text.png" />
@@ -35,7 +37,9 @@
     <Resource Include="images\add.png" />
     <Resource Include="images\delete.png" />
     <Resource Include="images\duplicate.png" />
+    <Resource Include="images\favicon.png" />
     <Resource Include="images\globe.png" />
+    <Resource Include="images\path.png" />
     <Resource Include="images\profile.png" />
     <Resource Include="images\rename.png" />
     <Resource Include="images\text.png" />
@@ -44,6 +48,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Octokit" Version="9.1.0" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
   </ItemGroup>
 
