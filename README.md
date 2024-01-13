@@ -6,10 +6,7 @@
 
 With Just One Click you can launch large lists of apps. You can adjust the delay in between each launch. You can even open tabs in your favorite browser. You can schedule a date and time for a specified Profile to Launch. 
 
-[]()
-
 # Downloads:
 
-- Stable: N/A
-- Beta: N/A
-- [Alpha: v0.0.1](https://github.com/DiamondPG/JustOneClick/releases)
+- [![Early Access Version](https://img.shields.io/badge/Beta%20Version%20-%20v0.0.1%20-%20orange)](https://github.com/DiamondPG/JustOneClick/releases)
+- [![Static Badge](https://img.shields.io/badge/Stable%20Version%20-%20TBD%20-%20red)](https://github.com/DiamondPG/JustOneClick/releases)
