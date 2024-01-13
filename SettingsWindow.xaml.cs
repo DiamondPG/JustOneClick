@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
@@ -10,19 +11,21 @@ namespace Just_One_Click
     {
         public bool DarkModeEnabled { get; set; }
         public string TextEditor { get; set; }
-        // Add more properties as needed
+        public bool DeleteConfirmation { get; set; }
     }
 
     public partial class SettingsWindow : Window
     {
-        private const string SettingsFilePath = "appsettings.json";
+        string SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        
 
         private Settings _appSettings;
 
         public SettingsWindow()
         {
             InitializeComponent();
-
+            SettingsFilePath = SettingsFilePath + "appsettings.json";
+            Trace.WriteLine(SettingsFilePath);
             // Load settings when the window is initialized
             _appSettings = LoadSettings();
             UpdateUI();
@@ -41,10 +44,10 @@ namespace Just_One_Click
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
-
-            // Return default settings if the file doesn't exist or there's an error
             return new Settings { DarkModeEnabled = false, TextEditor = "Notepad" };
+            // Return default settings if the file doesn't exist or there's an error
         }
 
         private void SaveSettings()
@@ -65,6 +68,7 @@ namespace Just_One_Click
             // Update your UI controls with the loaded settings
             DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
             Path.Text = _appSettings.TextEditor;
+            ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -98,6 +102,11 @@ namespace Just_One_Click
         private void ResetClick(object sender, RoutedEventArgs e)
         {
 
+            string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
+            savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
+            string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
+            MainWindow main = new MainWindow();
+            main.WritePlaceholderJson(saveFile);
         }
     }
 }
