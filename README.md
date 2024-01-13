@@ -12,4 +12,4 @@ With Just One Click you can launch large lists of apps. You can adjust the delay
 
 - Stable: N/A
 - Beta: N/A
-- [Alpha: v0.0.1](https://github.com/DiamondPG/JustOneClick/releases/new)
+- [Alpha: v0.0.1](https://github.com/DiamondPG/JustOneClick/releases)
