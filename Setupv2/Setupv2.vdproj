@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_499F7CD9B8B444E88CD11A24DA834E9E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_5AB76C291AA549A49C084CA497ADC677"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -164,6 +170,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_499F7CD9B8B444E88CD11A24DA834E9E"
+            {
+            "SourcePath" = "8:..\\Updater\\secrets.env"
+            "TargetName" = "8:secrets.env"
+            "Tag" = "8:"
+            "Folder" = "8:_2BCBA3E09F0843DCB317E575C4A3A261"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C89FE990D85745DD98E5E5C68B4C4885"
             {
             "SourcePath" = "8:..\\Just One Click\\icon.ico"
@@ -224,6 +250,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_CB805BCC79BF4891BF33DF247267FD79"
+            {
+            "Name" = "8:#1915"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:AppDataFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2BCBA3E09F0843DCB317E575C4A3A261"
+                    {
+                    "Name" = "8:DiamondPG"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A76C559BA080459D9B8E81C7D0984401"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -240,15 +288,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
-        "ProductCode" = "8:{921866B3-9D93-4821-8BA3-1E612D7283A4}"
-        "PackageCode" = "8:{1E945A2E-761E-4569-989E-E2350FE4788F}"
+        "ProductCode" = "8:{4343AD0E-3C9E-426D-914E-CE7C121A1D83}"
+        "PackageCode" = "8:{39E4013B-FEB3-4B30-8A2C-69AC2E23D5C7}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.3"
+        "ProductVersion" = "8:0.0.2"
         "Manufacturer" = "8:DiamondPG"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -361,7 +409,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2EC31635BD5E4365AF16C30D3E80A464"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_52B96EB534A946FB811E341781D1B2D7"
             {
             "Name" = "8:Just One Click"
             "Arguments" = "8:"
@@ -369,29 +417,15 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_26256C06473B4A5D9889A5E5B2688F6C"
+            "Target" = "8:_5AB76C291AA549A49C084CA497ADC677"
             "Folder" = "8:_013778BC76B242FC8D323BADF3594874"
-            "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
-            "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_59DA27542E8D4937BB36889C4F01DC89"
-            {
-            "Name" = "8:Just One Click"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_26256C06473B4A5D9889A5E5B2688F6C"
-            "Folder" = "8:_B5FF9E7D7B324662B58A3714B36BA3F6"
             "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
             "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9B0772F5A00F4DFAAF9730173657E514"
             {
-            "Name" = "8:Just One Click Updater"
+            "Name" = "8:Just One Click"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

@@ -58,9 +58,8 @@ namespace Updater
             string repo = "JustOneClick";
             DownloadProgress.Value = 0;
 
-            // Your GitHub Personal Access Token (PAT)
-            string accessToken = "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";
-
+            string accessToken = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/DiamondPG/secrets.env");
+            Trace.WriteLine(accessToken);
             var client = new GitHubClient(new Octokit.ProductHeaderValue("JustOneClick"));
             client.Credentials = new Credentials(accessToken);
 
@@ -133,7 +132,8 @@ namespace Updater
                     return Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", String.Empty).ToString();
                 }
                 var client = new GitHubClient(new Octokit.ProductHeaderValue("JustOneClick"));
-                client.Credentials = new Credentials("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");
+                string accessToken = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/DiamondPG/secrets.env");
+                client.Credentials = new Credentials(accessToken);
                 var releases = client.Repository.Release.GetAll("DiamondPG", "JustOneClick").Result;
                 string fileNameToDownload = "setup.zip";
                 string filePathToDownload = GetDownloadFolderPath() + "/setup.zip";
@@ -167,7 +167,7 @@ namespace Updater
         {
             string path = Directory.GetCurrentDirectory();
 
-            string exe = System.IO.Path.Combine(path + "/JustOneClick.exe");
+            string exe = System.IO.Path.Combine(path + "\\JustOneClick.exe");
             try
             {
                 Process.Start(exe);

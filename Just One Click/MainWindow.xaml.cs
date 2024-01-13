@@ -61,7 +61,7 @@ namespace Just_One_Click
         }
         int delay = 5;
         ImageSource FaviconSource;
-        bool isFirstBoot = true;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -222,15 +222,16 @@ namespace Just_One_Click
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
-            if (isFirstBoot == true)
-            {
-                WritePlaceholderJson(saveFile);
-                isFirstBoot = false;
-            }
+            
             if (!File.Exists(saveFile) || string.IsNullOrEmpty(File.ReadAllText(saveFile)))
             {
                 // If the file doesn't exist or is empty, write a placeholder JSON file
-                WritePlaceholderJson(saveFile);
+                
+                MessageBoxResult result = MessageBox.Show("Failed to Read Data. Write Placeholder JSON?", "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    WritePlaceholderJson(saveFile);
+                }
             }
             Apps apps = new Apps();
             if (File.Exists(saveFile))

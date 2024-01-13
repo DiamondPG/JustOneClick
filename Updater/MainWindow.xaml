@@ -18,12 +18,12 @@
             <Button x:Name="UpdateButton" 
                     Height="35" 
                     Margin="5" 
-                    Width="100" 
+                    Width="200" 
                     Content="Update Now" 
                     Click="UpdateButton_Click"/>
             <Button x:Name="LaunchButton" 
                     Content="Launch Without Updating" 
-                    Width="100" 
+                    Width="200" 
                     Margin="5" 
                     Height="35" 
                     Click="LaunchButton_Click"/>
