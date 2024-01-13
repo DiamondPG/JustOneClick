@@ -21,6 +21,36 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2B8B3438442F43E3A84F6FAB899E125E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3A91A473393E4A3BAE8D6BABF5BD79F8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_472B325FBDC14F71A12F4551E8D4E6C8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_499F7CD9B8B444E88CD11A24DA834E9E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5AB76C291AA549A49C084CA497ADC677"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -70,7 +100,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setupv2.msi"
+        "OutputFilename" = "8:Release\\Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -93,6 +123,11 @@
                     {
                     "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 6.0.21 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
             }
@@ -127,6 +162,86 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B8B3438442F43E3A84F6FAB899E125E"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\savedata.json"
+            "TargetName" = "8:savedata.json"
+            "Tag" = "8:"
+            "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A91A473393E4A3BAE8D6BABF5BD79F8"
+            {
+            "SourcePath" = "8:..\\version.txt"
+            "TargetName" = "8:version.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_6D9B38BD1CE64088961B035077591994"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_472B325FBDC14F71A12F4551E8D4E6C8"
+            {
+            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\appsettings.json"
+            "TargetName" = "8:appsettings.json"
+            "Tag" = "8:"
+            "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_499F7CD9B8B444E88CD11A24DA834E9E"
+            {
+            "SourcePath" = "8:..\\Updater\\secrets.env"
+            "TargetName" = "8:secrets.env"
+            "Tag" = "8:"
+            "Folder" = "8:_2BCBA3E09F0843DCB317E575C4A3A261"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:TRUE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C89FE990D85745DD98E5E5C68B4C4885"
             {
             "SourcePath" = "8:..\\Just One Click\\icon.ico"
@@ -164,6 +279,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_2FBC8EEDEE1C4290B4B794FE9757386F"
+            {
+            "Name" = "8:#1918"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:PersonalFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_12FFC72B76874F3BACC03A512748E103"
+                    {
+                    "Name" = "8:Just One Click"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_0382747492A24965B48506637445AE4F"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_6D9B38BD1CE64088961B035077591994"
             {
             "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
@@ -187,6 +324,28 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_CB805BCC79BF4891BF33DF247267FD79"
+            {
+            "Name" = "8:#1915"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:AppDataFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_2BCBA3E09F0843DCB317E575C4A3A261"
+                    {
+                    "Name" = "8:DiamondPG"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A76C559BA080459D9B8E81C7D0984401"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
         }
         "LaunchCondition"
         {
@@ -203,15 +362,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
-        "ProductCode" = "8:{498718C8-2EBE-4558-AAF8-99BFD3627C65}"
-        "PackageCode" = "8:{8107D8A8-0386-473D-A744-F4F0E0B35455}"
+        "ProductCode" = "8:{4343AD0E-3C9E-426D-914E-CE7C121A1D83}"
+        "PackageCode" = "8:{3D172DD3-502F-41E9-A574-0475AC0925FB}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
-        "DetectNewerInstalledVersion" = "11:FALSE"
+        "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.1"
+        "ProductVersion" = "8:0.0.2"
         "Manufacturer" = "8:DiamondPG"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -324,7 +483,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2EC31635BD5E4365AF16C30D3E80A464"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_52B96EB534A946FB811E341781D1B2D7"
             {
             "Name" = "8:Just One Click"
             "Arguments" = "8:"
@@ -332,21 +491,21 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_26256C06473B4A5D9889A5E5B2688F6C"
+            "Target" = "8:_5AB76C291AA549A49C084CA497ADC677"
             "Folder" = "8:_013778BC76B242FC8D323BADF3594874"
             "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
             "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_59DA27542E8D4937BB36889C4F01DC89"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9B0772F5A00F4DFAAF9730173657E514"
             {
-            "Name" = "8:JustOneClick"
+            "Name" = "8:Just One Click"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_26256C06473B4A5D9889A5E5B2688F6C"
+            "Target" = "8:_5AB76C291AA549A49C084CA497ADC677"
             "Folder" = "8:_B5FF9E7D7B324662B58A3714B36BA3F6"
             "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
             "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
@@ -774,6 +933,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{4DF94D7A-1659-4D73-BEB4-655016DF6351}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5AB76C291AA549A49C084CA497ADC677"
+            {
+            "SourcePath" = "8:..\\Updater\\obj\\Debug\\net6.0-windows\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_6D9B38BD1CE64088961B035077591994"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{AC9585F1-EE44-4EFB-9BE4-9BF7C792AFFA}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
