@@ -232,6 +232,9 @@ namespace Just_One_Click
                 {
                     WritePlaceholderJson(saveFile);
                 }
+                else {
+                    Log("Failed to write Placeholder JSON");
+                }
             }
             Apps apps = new Apps();
             if (File.Exists(saveFile))
