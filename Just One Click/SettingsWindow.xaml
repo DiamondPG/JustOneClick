@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Settings" Height="300" Width="400"
         x:Name="Window"
-        Background="#28282b">
+        Background="#28282b"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
         <!-- Add your settings UI controls here -->
         <StackPanel Margin="5">

@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using static Just_One_Click.MainWindow;
 
 namespace Just_One_Click
 {
@@ -24,31 +25,37 @@ namespace Just_One_Click
         public SettingsWindow()
         {
             InitializeComponent();
-            SettingsFilePath = SettingsFilePath + "appsettings.json";
+            SettingsFilePath = SettingsFilePath + "\\Just One Click\\appsettings.json";
             Trace.WriteLine(SettingsFilePath);
+
             // Load settings when the window is initialized
-            _appSettings = LoadSettings();
+            LoadSettings();
+            DataContext = _appSettings;
             UpdateUI();
+
         }
 
-        private Settings LoadSettings()
+        private void LoadSettings()
         {
             try
             {
                 if (File.Exists(SettingsFilePath))
                 {
                     string json = File.ReadAllText(SettingsFilePath);
-                    return JsonConvert.DeserializeObject<Settings>(json);
+                    _appSettings = JsonConvert.DeserializeObject<Settings>(json);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                
             }
-            return new Settings { DarkModeEnabled = false, TextEditor = "Notepad" };
-            // Return default settings if the file doesn't exist or there's an error
+
+            // If settings couldn't be loaded, initialize with default values
+            _appSettings ??= new Settings { DarkModeEnabled = false, TextEditor = "Notepad" };
         }
+
+        
+
 
         private void SaveSettings()
         {
@@ -56,6 +63,7 @@ namespace Just_One_Click
             {
                 string json = JsonConvert.SerializeObject(_appSettings, Formatting.Indented);
                 File.WriteAllText(SettingsFilePath, json);
+                Trace.WriteLine(json);
             }
             catch (Exception ex)
             {
@@ -63,23 +71,86 @@ namespace Just_One_Click
             }
         }
 
+
+
+
         private void UpdateUI()
         {
-            // Update your UI controls with the loaded settings
-            DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
-            Path.Text = _appSettings.TextEditor;
-            ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
+            if (_appSettings != null)
+            {
+                // Update your UI controls with the loaded settings
+                DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
+                Path.Text = _appSettings.TextEditor;
+                ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
+                
+            }
+            else
+            {
+                // Handle the case where _appSettings is null
+                // You can provide default values or take appropriate action
+                DarkModeCheckbox.IsChecked = false;
+                Path.Text = "DefaultTextEditor"; // Replace with an appropriate default value
+                ConfirmationCheckbox.IsChecked = false;
+
+                MessageBox.Show("Failed to save settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Update settings with values from UI controls
-            _appSettings.DarkModeEnabled = DarkModeCheckbox.IsChecked ?? false;
-            _appSettings.TextEditor = Path.Text;
+            if (_appSettings != null)
+            {
+                // Update settings with values from UI controls
+                _appSettings.DarkModeEnabled = DarkModeCheckbox.IsChecked ?? false;
+                _appSettings.TextEditor = Path.Text;
+                
+                
 
-            // Save settings to the JSON file
-            SaveSettings();
+                // Save settings to the JSON file
+                SaveSettings();
+                string json = JsonConvert.SerializeObject( _appSettings, Formatting.Indented );
+                Trace.WriteLine(json);
+                
+            }
+            else
+            {
+                // Handle the case where _appSettings is null
+                // You might want to initialize it or take appropriate action
+                WritePlaceholderJson(SettingsFilePath);
+                MessageBox.Show("Failed to save settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //_appSettings = new Settings { DarkModeEnabled = false, TextEditor = "Notepad" };
+            }
+
+            // Close the window or perform other actions as needed
+            Close();
         }
+        // Add this method to your SettingsWindow class
+        public void WritePlaceholderJson(string filePath)
+        {
+            try
+            {
+                // Create a default Settings object with placeholder values
+                Settings placeholderSettings = new Settings
+                {
+                    DarkModeEnabled = true,
+                    TextEditor = "Visual Studio Code",
+                    DeleteConfirmation = true
+                };
+
+                // Serialize the Settings object to JSON
+                string json = JsonConvert.SerializeObject(placeholderSettings, Formatting.Indented);
+
+                // Write the JSON to the specified file
+                File.WriteAllText(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error writing placeholder JSON: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
         private void FileBrowserDialog(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
