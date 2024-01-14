@@ -33,13 +33,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_472B325FBDC14F71A12F4551E8D4E6C8"
+        "MsmKey" = "8:_3EA4D5F80E964115A315A11224B8FCA2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_499F7CD9B8B444E88CD11A24DA834E9E"
+        "MsmKey" = "8:_472B325FBDC14F71A12F4551E8D4E6C8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -202,12 +202,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_472B325FBDC14F71A12F4551E8D4E6C8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3EA4D5F80E964115A315A11224B8FCA2"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\appsettings.json"
-            "TargetName" = "8:appsettings.json"
+            "SourcePath" = "8:..\\Updater\\.env"
+            "TargetName" = "8:.env"
             "Tag" = "8:"
-            "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
+            "Folder" = "8:_2BCBA3E09F0843DCB317E575C4A3A261"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -222,17 +222,17 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_499F7CD9B8B444E88CD11A24DA834E9E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_472B325FBDC14F71A12F4551E8D4E6C8"
             {
-            "SourcePath" = "8:..\\Updater\\secrets.env"
-            "TargetName" = "8:secrets.env"
+            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\appsettings.json"
+            "TargetName" = "8:appsettings.json"
             "Tag" = "8:"
-            "Folder" = "8:_2BCBA3E09F0843DCB317E575C4A3A261"
+            "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -363,7 +363,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
         "ProductCode" = "8:{4343AD0E-3C9E-426D-914E-CE7C121A1D83}"
-        "PackageCode" = "8:{3D172DD3-502F-41E9-A574-0475AC0925FB}"
+        "PackageCode" = "8:{D1EF8785-7C41-4693-857C-1C8F672F3134}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

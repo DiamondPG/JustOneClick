@@ -33,7 +33,8 @@ namespace Updater
         string version;
         bool versionMatches = false;
         string currentVersion;
-
+        string appPath = Environment.ProcessPath;
+        
         
         public MainWindow()
         {
@@ -57,7 +58,7 @@ namespace Updater
             string owner = "DiamondPG";
             string repo = "JustOneClick";
             DownloadProgress.Value = 0;
-
+            appPath.Replace("updater.exe", "");
             string accessToken = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/DiamondPG/secrets.env");
             Trace.WriteLine(accessToken);
             var client = new GitHubClient(new Octokit.ProductHeaderValue("JustOneClick"));
@@ -96,16 +97,19 @@ namespace Updater
             if (version == currentVersion){
                 string path = Directory.GetCurrentDirectory();
                 
-                string exe = System.IO.Path.Combine(path + "/JustOneClick.exe");
+                string exe = System.IO.Path.Combine(path + "\\Just One Click.exe");
+                Trace.WriteLine(exe);
                 try
                 {
                     Process.Start(exe);
+                    
                 }
                 catch(Exception ex)
                 {
+                    MessageBox.Show($"Error launching application: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     try
                     {
-                        Process.Start("C:\\Users\\Harma\\source\\repos\\Just One Click\\Just One Click\\bin\\Release\\net6.0-windows10.0.22621.0\\Just One Click.exe");
+                        //Process.Start("C:\\Users\\Harma\\source\\repos\\Just One Click\\Just One Click\\bin\\Release\\net6.0-windows10.0.22621.0\\Just One Click.exe");
                     }
                     catch
                     {
@@ -167,7 +171,7 @@ namespace Updater
         {
             string path = Directory.GetCurrentDirectory();
 
-            string exe = System.IO.Path.Combine(path + "\\JustOneClick.exe");
+            string exe = System.IO.Path.Combine(path + "\\Just One Click.exe");
             try
             {
                 Process.Start(exe);
