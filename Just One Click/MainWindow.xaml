@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         Title="Just One Click" Height="470" Width="810"
-        Icon="/icon.ico">
+        Icon="/icon.ico"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:PathColorConverter x:Key="PathColorConverter"/>
         
@@ -108,7 +109,9 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel>
                             <TextBlock Height="30" Margin="5,0,0,0" Foreground="White" FontSize="18" Text="{Binding Name}" />
+                            <TextBlock x:Name="NumApps" Margin="50,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="0" Foreground="DarkGray" FontSize="12"/>
                         </StackPanel>
+                        
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -126,11 +129,6 @@
                     <MenuItem Header="Rename Item" Click="RenameProfile_Click">
                         <MenuItem.Icon>
                             <Image Height="16" Width="16" Source="images/rename.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="Change Path" Click="ChangePathMenuItem_Click">
-                        <MenuItem.Icon>
-                            <Image Width="16" Height="16" Source="images/path.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
