@@ -102,13 +102,37 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
+                <Style x:Key="SeparatorStyle" TargetType="Separator">
+                    <Setter Property="Background" Value="#2D2D30"/>
+
+                    <Setter Property="Height" Value="1"/>
+                    <Setter Property="Margin" Value="0,5,0,5"/>
+                    <Setter Property="Width" Value="200"/>
+                </Style>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
+<<<<<<< Updated upstream
                         <StackPanel>
                             <TextBlock Height="30" Margin="5,0,0,0" Foreground="White" FontSize="18" Text="{Binding Name}" />
                         </StackPanel>
+=======
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Height="30" Margin="5,0,0,0" Foreground="White" FontSize="18" Text="{Binding Name}" />
+                            <TextBlock x:Name="NumApps" Grid.Row="0" Grid.Column="1"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding Num}" Foreground="DarkGray" FontSize="24"/>
+                            <Separator Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource SeparatorStyle}" Margin="0,5,0,5"/>
+                        </Grid>
+                        
+>>>>>>> Stashed changes
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -148,8 +172,8 @@
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
-        
-        <TextBlock Name="Console" Grid.ColumnSpan="2"  Text="Console" Margin="5,0,5,35" Foreground="White" Grid.Column="3" FontSize="10" Grid.Row="2" ScrollViewer.CanContentScroll="True"/>
+
+        <TextBlock Name="Console" TextWrapping="Wrap" Background="#1e1f21" Grid.ColumnSpan="2"  Text="Console" Margin="5,0,5,35" Foreground="White" Grid.Column="3" FontSize="10" Grid.Row="2" ScrollViewer.CanContentScroll="True"/>
         <ListBox x:Name="AppsLB" Background="#1e1f21" Foreground="White" Grid.Column="5" Width="220" Grid.Row="1" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False"
          ItemsSource="{Binding ElementName=Profiles, Path=SelectedItem.Applications}">
             <ListBox.Resources>
@@ -224,7 +248,7 @@
                             <Image Height="16" Width="16" Source="images/globe.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="Add New Text Document">
+                    <MenuItem Header="Add New Text Document" Click="AddTextSource_Click">
                         <MenuItem.Icon>
                             <Image Height="16" Width="16" Source="images/text.png"/>
                         </MenuItem.Icon>

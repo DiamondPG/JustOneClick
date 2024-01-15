@@ -65,27 +65,85 @@ namespace Just_One_Click
 
         private void UpdateUI()
         {
+<<<<<<< Updated upstream
             // Update your UI controls with the loaded settings
             DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
             Path.Text = _appSettings.TextEditor;
             ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
+=======
+            if (_appSettings != null)
+            {
+                // Update your UI controls with the loaded settings
+                DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
+               
+                ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
+                
+            }
+            else
+            {
+                // Handle the case where _appSettings is null
+                // You can provide default values or take appropriate action
+                DarkModeCheckbox.IsChecked = false;
+                ConfirmationCheckbox.IsChecked = false;
+
+                MessageBox.Show("Failed to save settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+>>>>>>> Stashed changes
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+<<<<<<< Updated upstream
             // Update settings with values from UI controls
             _appSettings.DarkModeEnabled = DarkModeCheckbox.IsChecked ?? false;
             _appSettings.TextEditor = Path.Text;
+=======
+            if (_appSettings != null)
+            {
+                // Update settings with values from UI controls
+                _appSettings.DarkModeEnabled = DarkModeCheckbox.IsChecked ?? false;
+                
+                
+                
+>>>>>>> Stashed changes
 
             // Save settings to the JSON file
             SaveSettings();
         }
+<<<<<<< Updated upstream
+=======
+        // Add this method to your SettingsWindow class
+        public void WritePlaceholderJson(string filePath)
+        {
+            try
+            {
+                // Create a default Settings object with placeholder values
+                Settings placeholderSettings = new Settings
+                {
+                    DarkModeEnabled = true,
+                    DeleteConfirmation = true
+                };
+
+                // Serialize the Settings object to JSON
+                string json = JsonConvert.SerializeObject(placeholderSettings, Formatting.Indented);
+
+                // Write the JSON to the specified file
+                File.WriteAllText(filePath, json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error writing placeholder JSON: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+>>>>>>> Stashed changes
         private void FileBrowserDialog(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Title = "Select JSON File",
-                Filter = "JSON Files|*.json",
+                Title = "Select Executable File",
+                Filter = "Executable Files|*.exe",
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
             };
 
