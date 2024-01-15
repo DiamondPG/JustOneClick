@@ -80,7 +80,7 @@ namespace Just_One_Click
             {
                 // Update your UI controls with the loaded settings
                 DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
-                Path.Text = _appSettings.TextEditor;
+               
                 ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
                 
             }
@@ -89,7 +89,6 @@ namespace Just_One_Click
                 // Handle the case where _appSettings is null
                 // You can provide default values or take appropriate action
                 DarkModeCheckbox.IsChecked = false;
-                Path.Text = "DefaultTextEditor"; // Replace with an appropriate default value
                 ConfirmationCheckbox.IsChecked = false;
 
                 MessageBox.Show("Failed to save settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -103,7 +102,7 @@ namespace Just_One_Click
             {
                 // Update settings with values from UI controls
                 _appSettings.DarkModeEnabled = DarkModeCheckbox.IsChecked ?? false;
-                _appSettings.TextEditor = Path.Text;
+                
                 
                 
 
@@ -134,7 +133,6 @@ namespace Just_One_Click
                 Settings placeholderSettings = new Settings
                 {
                     DarkModeEnabled = true,
-                    TextEditor = "Visual Studio Code",
                     DeleteConfirmation = true
                 };
 
@@ -155,8 +153,8 @@ namespace Just_One_Click
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Title = "Select JSON File",
-                Filter = "JSON Files|*.json",
+                Title = "Select Executable File",
+                Filter = "Executable Files|*.exe",
                 InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
             };
 

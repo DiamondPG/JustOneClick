@@ -35,6 +35,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Interop;
 using static Just_One_Click.MainWindow;
 using System.Net.NetworkInformation;
+using System.Security.Policy;
+using ABI.System;
 
 namespace Just_One_Click
 {
@@ -68,115 +70,13 @@ namespace Just_One_Click
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical;
-            string path = Directory.GetCurrentDirectory() + "/data.json";
-            string spath = Directory.GetCurrentDirectory() + "/sdata.json";
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical; //no clue what this does, so im not getting rid of it
+            Activated += MainWindow_Activated;
 
-            var test = new                              //Test JSON string in indented form, 1 command until line 93
-            {
-                Name = "Test",
-                ID = "1",
-                Applications = new[] {
-
-                        new {
-                            name = "X-Plane 12",
-                            path = "/hi",
-                            favicon = "/d/dd/",
-                            ID = "1"
-                        },
-
-                        new
-                        {
-                            name = "Other X-Plane",
-                            path = "/bye",
-                            favicon = "not used",
-                            ID = "2"
-                        }
-
-
-                    }
-
-
-            };
             string SerializedJSON = "";
             string ReserializedJSON = "";
             var DeserializedJSON = new List<Profile>();
-
-            void TestJSONWrite()
-            {
-                Profile profile = new Profile();            //unnecesssary?
-                profile.Name = "Test";                      //.
-                profile.ID = "1";                           //..
-
-                var ReadJSON = "";
-                int testExitCode = 0;
-
-                try
-                {
-                    SerializedJSON = JsonConvert.SerializeObject(test, Formatting.Indented);
-                }
-                catch
-                {
-                    Log("Error: C0101. Serialization Failure");
-                    testExitCode = 1;
-                }
-                try
-                {
-
-                }
-                catch
-                {
-                    Write("Error C0102. Data Write Failed. Make sure this app has access to the Documents folder");
-                    testExitCode = 2;
-                }
-
-                try
-                {
-                    ReadJSON = File.ReadAllText(saveFile);
-                    //Reading File - Error here
-                }
-                catch
-                {
-                    Log("Error C0103. File Read Error.");
-                    testExitCode = 3;
-                }
-                try
-                {
-                    DeserializedJSON = JsonConvert.DeserializeObject<List<Profile>>(ReadJSON);
-                }
-                catch
-                {
-                    Write("Error C0104. Deserialization Failure");
-
-                    testExitCode = 4;
-                }
-                try
-                {
-                    ReserializedJSON = JsonConvert.SerializeObject(DeserializedJSON, Formatting.Indented);
-                }
-                catch
-                {
-                    Write("Error C0105. Reserialization Failure");
-                    testExitCode = 5;
-                }
-                if (ReserializedJSON == SerializedJSON)
-                {
-                    Write($"Tests Succeeded (Exit Code {testExitCode})");
-                }
-                else
-                {
-                    Write("");
-                    Log(SerializedJSON);
-                    Log("Reserialized:");
-                    Log(ReserializedJSON);
-                }
-            }
-
-
-
-
-
-            TestJSONWrite();
+            
             Initialize();
         }
 
@@ -194,14 +94,49 @@ namespace Just_One_Click
                 {
                     try
                     {
-                        // Start the selected application
-                        System.Diagnostics.Process.Start(selectedApp.Path);
-                        Log($"Launching: {selectedApp.Path}");
+                        if (selectedApp.isBrowserSource == true)
+                        {
+                            string path = "";
+                            if (!selectedApp.Path.StartsWith("http://") && !selectedApp.Path.StartsWith("https://"))
+                            {
+                                // If the URL doesn't start with "http://" or "https://", prepend "https://"
+                                path = "https://" + selectedApp.Path;
+                            }
+                            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                        } else if (selectedApp.isTextSource == true)
+                        {
+                            try
+                            {
+                                // Ensure the file exists before attempting to open it
+                                if (File.Exists(selectedApp.Path))
+                                {
+                                    Process.Start(new ProcessStartInfo
+                                    {
+                                        FileName = selectedApp.Path,
+                                        UseShellExecute = true
+                                    });
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"File not found: {selectedApp.Path}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                            }
+                            catch (System.Exception ex)
+                            {
+                                MessageBox.Show($"Error opening text file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                        {
+                            // Start the selected application
+                            System.Diagnostics.Process.Start(selectedApp.Path);
+                            Log($"Launching: {selectedApp.Path}");
 
-                        // Introduce a delay between launches (adjust the delay time as needed)
-                        await Task.Delay(TimeSpan.FromSeconds(delay)); // 5 seconds delay
+                            // Introduce a delay between launches (adjust the delay time as needed)
+                            await Task.Delay(System.TimeSpan.FromSeconds(delay)); // 5 seconds delay
+                        }
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         // Handle any exceptions that may occur during the process start
                         MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -215,14 +150,23 @@ namespace Just_One_Click
 
         }
 
-
+        public Settings dSettings = new Settings();
         public void Initialize()
         {
 
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
-            
+            string settingsFile = System.IO.Path.Combine(savePath + "appsettings.json");
+            if (!File.Exists(settingsFile) || string.IsNullOrEmpty(File.ReadAllText(settingsFile)))
+            {
+                MessageBox.Show("Settings Failed to Load, File does not exist or is empty","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+            if(File.Exists(settingsFile))
+            {
+                string json = File.ReadAllText(settingsFile);
+                dSettings = JsonConvert.DeserializeObject<Settings>(json);
+            }
             if (!File.Exists(saveFile) || string.IsNullOrEmpty(File.ReadAllText(saveFile)))
             {
                 // If the file doesn't exist or is empty, write a placeholder JSON file
@@ -256,7 +200,11 @@ namespace Just_One_Click
                     MessageBox.Show("Error Code A0101: JSON deserialization failure", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 Profile profile = new Profile();
-
+                foreach (Profile profile1 in djson)
+                {
+                    profile1.Num = profile1.Applications.Count;
+                    Profiles.Items.Refresh();
+                }
 
                 string ajson = JsonConvert.SerializeObject(djson, Formatting.Indented);
                 try
@@ -276,6 +224,7 @@ namespace Just_One_Click
                     Write("Error A0401. Error Setting Data Source");
                     MessageBox.Show("Error Code A0401: Error Setting Data Source", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
             }
             else
             {
@@ -283,7 +232,6 @@ namespace Just_One_Click
                 MessageBox.Show("Error Code A0301: Save File Not Found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
-            //Clipboard.SetText(log);
 
             void CreateFile(string serOBJ, string path)
             {
@@ -299,6 +247,8 @@ namespace Just_One_Click
             }
             AppsLB.ItemsSource = null;
             AppsLB.Items.Refresh();
+            
+            
         }
 
 
@@ -344,14 +294,14 @@ namespace Just_One_Click
             }
         }
 
-        private void ContextMenu_DeleteClick(object sender, RoutedEventArgs e)
+        private void ContextMenu_DeleteClick(object sender, RoutedEventArgs e) //Deletes Apps
         {
             if (Profiles.SelectedItem is Profile selectedProfile)
             {
                 if (AppsLB.SelectedItem is Apps selectedApp)
                 {
-                    //if () {
-                        // Confirm with the user before deleting the app
+                    
+                     if(dSettings.DeleteConfirmation == true) {                         // Confirm with the user before deleting the app
                         MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the application '{selectedApp.Name}' from the profile '{selectedProfile.Name}'?",
                                                                   "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -367,7 +317,18 @@ namespace Just_One_Click
                             SaveDataToJson();
                             AppsLB.Items.Refresh();
                         }
-                    //}
+                    }
+                    else if (dSettings.DeleteConfirmation == false)
+                    {
+                        selectedProfile.Applications.Remove(selectedApp);
+
+                        // Update the ListBox's ItemsSource to reflect the changes
+                        AppsLB.ItemsSource = selectedProfile.Applications;
+
+                        // Save the updated data to the JSON file (you need to implement the save logic)
+                        SaveDataToJson();
+                        AppsLB.Items.Refresh();
+                    }
                 }
             }
         }
@@ -382,7 +343,8 @@ namespace Just_One_Click
                     ID = "new",
                     Name = "New App",
                     Path = "C:\\Program Files\\NewApp.exe",
-                    Favicon = null
+                    Favicon = null,
+                    isBrowserSource = false
                 };
 
                 // Add the new app to the profile's Applications list
@@ -394,6 +356,8 @@ namespace Just_One_Click
                 // Save the updated data to the JSON file
                 SaveDataToJson();
                 AppsLB.Items.Refresh();
+                selectedProfile.Num = selectedProfile.Applications.Count;
+                Profiles.Items.Refresh();
             }
         }
         private void AddProfile_Click(object sender, RoutedEventArgs e)
@@ -427,11 +391,32 @@ namespace Just_One_Click
         {
             if (Profiles.SelectedItem is Profile selectedProfile)
             {
-                // Confirm with the user before deleting the profile
-                MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the profile '{selectedProfile.Name}'?",
-                                                          "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                Settings settings = new Settings();
+                if (settings.DeleteConfirmation == true)
+                {
+                    // Confirm with the user before deleting the profile
+                    MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the profile '{selectedProfile.Name}'?",
+                                                              "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                if (result == MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        // Remove the selected profile from the existing data
+                        if (Profiles.ItemsSource is List<Profile> profileList)
+                        {
+                            profileList.Remove(selectedProfile);
+
+                            // Refresh the ListBox's ItemsSource to reflect the changes
+                            Profiles.ItemsSource = profileList;
+
+                            // Save the updated data to the JSON file
+                            SaveDataToJson();
+                            Profiles.Items.Refresh();
+                            selectedProfile.Num = selectedProfile.Applications.Count;
+                            Profiles.Items.Refresh();
+                        }
+                    }
+                } 
+                else
                 {
                     // Remove the selected profile from the existing data
                     if (Profiles.ItemsSource is List<Profile> profileList)
@@ -443,6 +428,8 @@ namespace Just_One_Click
 
                         // Save the updated data to the JSON file
                         SaveDataToJson();
+                        Profiles.Items.Refresh();
+                        selectedProfile.Num = selectedProfile.Applications.Count;
                         Profiles.Items.Refresh();
                     }
                 }
@@ -506,24 +493,69 @@ namespace Just_One_Click
 
             return null;
         }
+        private string BrowseForTextFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return openFileDialog.FileName;
+            }
+
+            return null;
+        }
+
         private void ChangePathMenuItem_Click(object sender, RoutedEventArgs e)
         {
             Apps app = new Apps();
-            
-
-                if (AppsLB.SelectedItem is Apps selectedApp)
+            if (AppsLB.SelectedItem is Apps selectedApp)
+            {
+                if (selectedApp.isBrowserSource == true)
                 {
+                    
+                    string newPath = PromptForNewUrl("Enter new URL");
+                    if (newPath != null)
+                    {
+                        selectedApp.Path = newPath;
+                        // Refresh the ListBox to reflect the changes
+                        AppsLB.Items.Refresh();
+
+                        string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                        SaveDataToJson();
+                    }
+                }
+                else if(selectedApp.isTextSource == true)
+                {
+                    string newPath = BrowseForTextFile();
+                    if (newPath != null)
+                    {
+                        selectedApp.Path = newPath;
+                        // Refresh the ListBox to reflect the changes
+                        AppsLB.Items.Refresh();
+
+                        string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                        SaveDataToJson();
+                    }
+                }
+                else
+                {
+
                     string newPath = BrowseForFile();
                     if (newPath != null)
                     {
                         selectedApp.Path = newPath;
                         // Refresh the ListBox to reflect the changes
                         AppsLB.Items.Refresh();
-                        
+
                         string newFaviconPath = ExtractFavicon(selectedApp.Path);
                         SaveDataToJson();
                     }
+
                 }
+            }
             
            
             
@@ -540,6 +572,7 @@ namespace Just_One_Click
 
                 // Update the selected app's name
                 selectedProfile.Name = newName;
+
 
                 Profiles.Items.Refresh();
 
@@ -559,6 +592,7 @@ namespace Just_One_Click
             ID = "PlaceholderProfile",
             Name = "Placeholder Profile",
             Delay = 5,
+            Num = 0,
             Applications = new List<Apps>
             {
                 new Apps
@@ -580,7 +614,7 @@ namespace Just_One_Click
                 File.WriteAllText(filePath, placeholderJson);
                 Log("Placeholder JSON file written.");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 // Handle any exceptions that may occur during file write
                 Log($"Error writing placeholder JSON file: {ex.Message}");
@@ -600,7 +634,7 @@ namespace Just_One_Click
                 Write("Data saved successfully.");
                 Log($"Path: {saveFile}");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Write($"Error saving data: {ex.Message}");
             }
@@ -671,7 +705,7 @@ namespace Just_One_Click
 
                 return tempIconPath;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Write($"Error extracting favicon: {ex.Message}");
                 return null;
@@ -687,7 +721,7 @@ namespace Just_One_Click
                 // Use the Process.Start method to launch the default web browser
                 Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 // Handle any exceptions that may occur during the process start
                 MessageBox.Show($"Error launching browser: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -718,6 +752,8 @@ namespace Just_One_Click
                     // Save the updated data to the JSON file
                     SaveDataToJson();
                     AppsLB.Items.Refresh();
+                    selectedProfile.Num = selectedProfile.Applications.Count;
+                    Profiles.Items.Refresh();
                 }
             }
         }
@@ -734,7 +770,9 @@ namespace Just_One_Click
                 ID = Guid.NewGuid().ToString(),
                 Name = newName,
                 Path = newUrl,
-                Favicon = null
+                Favicon = "",
+                isBrowserSource = true,
+                isTextSource = false
             };
 
             // Add the new browser source to the selected profile's Applications list
@@ -748,6 +786,8 @@ namespace Just_One_Click
                 // Save the updated data to the JSON file
                 SaveDataToJson();
                 AppsLB.Items.Refresh();
+                selectedProfile.Num = selectedProfile.Applications.Count;
+                Profiles.Items.Refresh();
             }
         }
 
@@ -784,21 +824,62 @@ namespace Just_One_Click
 
             return newUrl;
         }
-        
-        
-
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             AppsLB.Items.Refresh();
             Profiles.Items.Refresh();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Initialize();
+            
+        }
+        private void AddTextSource_Click(object sender, RoutedEventArgs e)
+        {
+            Apps newTextSource = new Apps
+            {
+                ID = Guid.NewGuid().ToString(),
+                Name = "New Text Source",
+                Path = "Path\\To\\Text\\Document",
+                Favicon = "",
+                isBrowserSource = false,
+                isTextSource = true
+            };
+            if (Profiles.SelectedItem is Profile selectedProfile)
+            {
+                selectedProfile.Applications.Add(newTextSource);
+
+                // Update the ListBox's ItemsSource to reflect the changes
+                AppsLB.ItemsSource = selectedProfile.Applications;
+
+                // Save the updated data to the JSON file
+                SaveDataToJson();
+                AppsLB.Items.Refresh();
+                selectedProfile.Num = selectedProfile.Applications.Count;
+                Profiles.Items.Refresh();
+            }
+        }
+        private void MainWindow_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
+                savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
+                string settingsFile = System.IO.Path.Combine(savePath + "appsettings.json");
+                string json = File.ReadAllText(settingsFile);
+                dSettings = JsonConvert.DeserializeObject<Settings>(json);
+            }
+            catch
+            {
+                MessageBox.Show("Settings have not been applied. Please Restart the App", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            
         }
         public class Profile
         {
             public string ID { get; set; }
             public string Name { get; set; }
             public int Delay { get; set; }
+            public int Num { get; set; }
             public List<Apps> Applications { get; set; }
         }
 
@@ -809,13 +890,13 @@ namespace Just_One_Click
             public string Path { get; set; }
             public string Favicon { get; set; }
             public bool isBrowserSource { get; set; }
+            public bool isTextSource { get; set; }
         }
 
         public class Settings
-    {
+        {
         public bool DarkModeEnabled { get; set; }
-        public string TextEditor { get; set; }
         public bool DeleteConfirmation { get; set; }
-    }
+        }
     }
 }
