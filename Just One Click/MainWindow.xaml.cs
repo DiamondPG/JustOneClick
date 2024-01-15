@@ -809,13 +809,9 @@ namespace Just_One_Click
             public string Path { get; set; }
             public string Favicon { get; set; }
             public bool isBrowserSource { get; set; }
-        }
 
-        public class Settings
-    {
-        public bool DarkModeEnabled { get; set; }
-        public string TextEditor { get; set; }
-        public bool DeleteConfirmation { get; set; }
-    }
+
+
+        }
     }
 }
