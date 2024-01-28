@@ -184,7 +184,7 @@ namespace Just_One_Click
             Write($"isFirstBoot after deserialization: {dSettings?.IsFirstBoot}"); // Log the value after deserialization
 
             // Check if the settings file exists
-            if (File.Exists(settingsFile))
+            if (!File.Exists(settingsFile))
             {
                 Write("Settings file does not exist");
                 // Add any other relevant logs or debugging information
