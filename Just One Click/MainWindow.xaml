@@ -14,7 +14,7 @@
         
     </Window.Resources>
 
-    <Grid Background="#28282b">
+    <Grid x:Name="grid" Background="#28282b">
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -33,8 +33,8 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/> 
         </Grid.RowDefinitions>
-        <Rectangle Fill="#1e1f21" Height="410" Grid.Column="1" Grid.RowSpan="2" Grid.Row="1"/>
-        <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" Foreground="White" Text="Just One Click"/>
+        
+        <TextBlock x:Name="Title" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" Foreground="White" Text="Just One Click"/>
         <Button Background="#1e1f21" Grid.ColumnSpan="2" Foreground="White" FontSize="20" Margin="5,0,5,0" Content="Launch" Name="LaunchBTN" Grid.Column="3" Grid.Row="3" Width="300" Height="50" Click="LaunchBTN_Click">
             <Button.Resources>
                 <Style TargetType="Border">
@@ -72,13 +72,20 @@
                 </Button.Resources>
             </Button>
         </StackPanel>
-        
-        <ListBox x:Name="Profiles" ItemsSource="{Binding}" SelectionMode="Single" Background="#1e1f21" Foreground="White" Grid.Column="1" Width="220" Grid.Row="1" Grid.RowSpan="3"
-         ScrollViewer.CanContentScroll="False"
+
+        <ListBox x:Name="Profiles" Background="#1e1f21" ItemsSource="{Binding}" SelectionMode="Single" Foreground="White" Grid.Column="1" Width="220" Grid.Row="1" Grid.RowSpan="3"
+         ScrollViewer.CanContentScroll="True"
             SelectionChanged="Profiles_SelectionChanged">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+                <Style x:Key="SeparatorStyle" TargetType="Separator">
+                    <Setter Property="Background" Value="#2D2D30"/>
+
+                    <Setter Property="Height" Value="1"/>
+                    <Setter Property="Margin" Value="0,5,0,5"/>
+                    <Setter Property="Width" Value="200"/>
                 </Style>
                 <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
                     <Setter Property="Padding" Value="5"/>
@@ -103,13 +110,7 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                <Style x:Key="SeparatorStyle" TargetType="Separator">
-                    <Setter Property="Background" Value="#2D2D30"/>
-
-                    <Setter Property="Height" Value="1"/>
-                    <Setter Property="Margin" Value="0,5,0,5"/>
-                    <Setter Property="Width" Value="200"/>
-                </Style>
+                
             </ListBox.Resources>
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -164,7 +165,7 @@
         </ListBox>
 
         <TextBlock Name="Console" TextWrapping="Wrap" Background="#1e1f21" Grid.ColumnSpan="2"  Text="Console" Margin="5,0,5,35" Foreground="White" Grid.Column="3" FontSize="10" Grid.Row="2" ScrollViewer.CanContentScroll="True"/>
-        <ListBox x:Name="AppsLB" Background="#1e1f21" Foreground="White" Grid.Column="5" Width="220" Grid.Row="1" Grid.RowSpan="3" ScrollViewer.CanContentScroll="False"
+        <ListBox x:Name="AppsLB" Background="#1e1f21" Foreground="White" Grid.Column="5" Width="220" Grid.Row="1" Grid.RowSpan="3" ScrollViewer.CanContentScroll="True"
          ItemsSource="{Binding ElementName=Profiles, Path=SelectedItem.Applications}">
             <ListBox.Resources>
                 <Style TargetType="Border">

@@ -11,8 +11,8 @@ namespace Just_One_Click
     public class Settings
     {
         public bool DarkModeEnabled { get; set; }
-        public string TextEditor { get; set; }
         public bool DeleteConfirmation { get; set; }
+        public bool isFirstBoot { get; set; }
     }
 
     public partial class SettingsWindow : Window
@@ -51,7 +51,7 @@ namespace Just_One_Click
             }
 
             // If settings couldn't be loaded, initialize with default values
-            _appSettings ??= new Settings { DarkModeEnabled = false, TextEditor = "Notepad" };
+            WritePlaceholderJson(SettingsFilePath);
         }
 
         

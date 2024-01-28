@@ -63,24 +63,36 @@ namespace Just_One_Click
         }
         int delay = 5;
         ImageSource FaviconSource;
-        
+        Settings dSettings = new Settings();
         public MainWindow()
         {
             InitializeComponent();
+            Authenticate();
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
             System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical; //no clue what this does, so im not getting rid of it
             Activated += MainWindow_Activated;
+            
 
             string SerializedJSON = "";
             string ReserializedJSON = "";
             var DeserializedJSON = new List<Profile>();
+
             
             Initialize();
+            
         }
 
+        private void Authenticate()
+        {
 
+        }
+
+        private void RipImage()
+        {
+
+        }
 
 
         private async void LaunchBTN_Click(object sender, RoutedEventArgs e)
@@ -123,6 +135,7 @@ namespace Just_One_Click
                             }
                             catch (System.Exception ex)
                             {
+                                this.WindowState = WindowState.Normal;
                                 MessageBox.Show($"Error opening text file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
@@ -138,6 +151,7 @@ namespace Just_One_Click
                     }
                     catch (System.Exception ex)
                     {
+                        this.WindowState = WindowState.Normal;
                         // Handle any exceptions that may occur during the process start
                         MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -145,12 +159,13 @@ namespace Just_One_Click
             }
             else
             {
+                this.WindowState = WindowState.Normal;
                 MessageBox.Show("Please select a profile to launch applications.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
         }
 
-        public Settings dSettings = new Settings();
+        
         public void Initialize()
         {
 
@@ -158,6 +173,47 @@ namespace Just_One_Click
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
             string settingsFile = System.IO.Path.Combine(savePath + "appsettings.json");
+            string readjson = File.ReadAllText(settingsFile);
+            
+            Settings dSettings = new Settings(); // Initialize the object
+            Write($"isFirstBoot: {dSettings.IsFirstBoot}"); // Log the initial value
+                                                            // Read the settings file and deserialize it
+            Write($"Read JSON from file: {readjson}"); // Log the JSON read from the file
+
+            dSettings = JsonConvert.DeserializeObject<Settings>(readjson);
+            Write($"isFirstBoot after deserialization: {dSettings?.IsFirstBoot}"); // Log the value after deserialization
+
+            // Check if the settings file exists
+            if (File.Exists(settingsFile))
+            {
+                Write("Settings file does not exist");
+                // Add any other relevant logs or debugging information
+                // ...
+
+                // Create a default Settings object with placeholder values
+                Settings placeholderSettings = new Settings
+                {
+                    DarkModeEnabled = true,
+                    DeleteConfirmation = true,
+                    IsFirstBoot = false  // Set isFirstBoot to false
+                };
+
+                // Serialize the Settings object to JSON
+                string json = JsonConvert.SerializeObject(placeholderSettings, Formatting.Indented);
+                Write($"Serialized JSON: {json}"); // Log the serialized JSON
+
+                try
+                {
+                    // Write the JSON to the specified file
+                    File.WriteAllText(settingsFile, json);
+                    Write("Settings file created successfully");
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show($"An error occurred when creating your settings file for the first time: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
             if (!File.Exists(settingsFile) || string.IsNullOrEmpty(File.ReadAllText(settingsFile)))
             {
                 MessageBox.Show("Settings Failed to Load, File does not exist or is empty","Error",MessageBoxButton.OK,MessageBoxImage.Error);
@@ -866,6 +922,41 @@ namespace Just_One_Click
                 string settingsFile = System.IO.Path.Combine(savePath + "appsettings.json");
                 string json = File.ReadAllText(settingsFile);
                 dSettings = JsonConvert.DeserializeObject<Settings>(json);
+                var black = System.Windows.Media.Brushes.Black;
+                SolidColorBrush white = new SolidColorBrush(System.Windows.Media.Color.FromRgb(237, 237, 237));
+
+                if (dSettings.DarkModeEnabled == false)
+                {
+                    
+                    
+                    Console.Foreground = black;
+                    grid.Background = white;
+                    Title.Foreground = black;
+                    LaunchBTN.Foreground = black;
+                    LaunchBTN.Background = white;
+                    SettingsBTN.Background = white;
+                    RefreshButton.Background = white;
+                    SettingsBTN.Foreground = black;
+                    RefreshButton.Foreground = black;
+                }
+                else
+                {
+                    SolidColorBrush bg = new SolidColorBrush(System.Windows.Media.Color.FromRgb(40, 40, 43));
+                    SolidColorBrush console = new SolidColorBrush(System.Windows.Media.Color.FromRgb(30, 31, 33));
+                    Console.Background = console;
+                    Title.Foreground = System.Windows.Media.Brushes.White;
+                    grid.Background = bg;
+                    Console.Foreground = white;
+                    grid.Background = bg;
+                    Title.Foreground = white;
+                    LaunchBTN.Foreground = white;
+                    LaunchBTN.Background = console;
+                    SettingsBTN.Background = console;
+                    RefreshButton.Background = console;
+                    SettingsBTN.Foreground = white;
+                    RefreshButton.Foreground = white;
+                }
+
             }
             catch
             {
@@ -897,6 +988,7 @@ namespace Just_One_Click
         {
         public bool DarkModeEnabled { get; set; }
         public bool DeleteConfirmation { get; set; }
+        public bool IsFirstBoot { get; set; }
         }
     }
 }
