@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2B8B3438442F43E3A84F6FAB899E125E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3A91A473393E4A3BAE8D6BABF5BD79F8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -39,13 +33,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_472B325FBDC14F71A12F4551E8D4E6C8"
+        "MsmKey" = "8:_5AB76C291AA549A49C084CA497ADC677"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_5AB76C291AA549A49C084CA497ADC677"
+        "MsmKey" = "8:_77A2A85ADEA845BDBDE92886DD3EAC0C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -162,26 +156,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2B8B3438442F43E3A84F6FAB899E125E"
-            {
-            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\savedata.json"
-            "TargetName" = "8:savedata.json"
-            "Tag" = "8:"
-            "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3A91A473393E4A3BAE8D6BABF5BD79F8"
             {
             "SourcePath" = "8:..\\version.txt"
@@ -222,9 +196,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_472B325FBDC14F71A12F4551E8D4E6C8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_77A2A85ADEA845BDBDE92886DD3EAC0C"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\OneDrive\\Documents\\Just One Click\\appsettings.json"
+            "SourcePath" = "8:..\\Just One Click\\appsettings.json"
             "TargetName" = "8:appsettings.json"
             "Tag" = "8:"
             "Folder" = "8:_12FFC72B76874F3BACC03A512748E103"
@@ -363,7 +337,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
         "ProductCode" = "8:{34107559-2CE1-4A95-9B41-F80BF5F11A99}"
-        "PackageCode" = "8:{2760678A-F084-4307-A363-985AF4F2D8F4}"
+        "PackageCode" = "8:{89AABF55-5D41-405F-9F56-40115E6CEEF8}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -819,9 +793,44 @@
                             }
                         }
                     }
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_73830CC424D34D7EBA69E2F94E082783"
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_55BC69910DD64725BEBB7495DD934349"
                     {
                     "Sequence" = "3:100"
+                    "DisplayName" = "8:Splash"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdSplashDlg.wid"
+                        "Properties"
+                        {
+                            "SplashBitmap"
+                            {
+                            "Name" = "8:SplashBitmap"
+                            "DisplayName" = "8:#1013"
+                            "Description" = "8:#1113"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Sunken"
+                            {
+                            "Name" = "8:Sunken"
+                            "DisplayName" = "8:#1007"
+                            "Description" = "8:#1107"
+                            "Type" = "3:5"
+                            "ContextData" = "8:4;True=4;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:4"
+                            "DefaultValue" = "3:4"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_73830CC424D34D7EBA69E2F94E082783"
+                    {
+                    "Sequence" = "3:110"
                     "DisplayName" = "8:Welcome"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
