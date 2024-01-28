@@ -67,7 +67,7 @@ namespace Just_One_Click
         public MainWindow()
         {
             InitializeComponent();
-            Authenticate();
+            //Authenticate();
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
@@ -115,7 +115,8 @@ namespace Just_One_Click
                                 path = "https://" + selectedApp.Path;
                             }
                             Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
-                        } else if (selectedApp.isTextSource == true)
+                        } 
+                        else if (selectedApp.isTextSource == true)
                         {
                             try
                             {
@@ -144,9 +145,20 @@ namespace Just_One_Click
                             // Start the selected application
                             System.Diagnostics.Process.Start(selectedApp.Path);
                             Log($"Launching: {selectedApp.Path}");
-
-                            // Introduce a delay between launches (adjust the delay time as needed)
-                            await Task.Delay(System.TimeSpan.FromSeconds(delay)); // 5 seconds delay
+                            Profile profile = new Profile();
+                            if (selectedApp.Delay >= 1)
+                            {
+                                await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
+                            } 
+                            else if(profile.GlobalDelay >= 1)
+                            {
+                                await Task.Delay(System.TimeSpan.FromSeconds(profile.GlobalDelay));
+                            }
+                            else
+                            {
+                                await Task.Delay(System.TimeSpan.FromSeconds(delay));
+                            }
+                            
                         }
                     }
                     catch (System.Exception ex)
@@ -195,6 +207,7 @@ namespace Just_One_Click
                 {
                     DarkModeEnabled = true,
                     DeleteConfirmation = true,
+                    VersionInfo = true,
                     IsFirstBoot = false  // Set isFirstBoot to false
                 };
 
@@ -307,6 +320,92 @@ namespace Just_One_Click
             
         }
 
+        private void ChangeGlobalDelay_Click(object sender, RoutedEventArgs e)
+        {
+            if (Profiles.SelectedItem is Profile selectedprofile)
+            {
+                InputBox inputbox = new InputBox("Enter New Global Launch Delay", "Change Global Delay", selectedprofile.GlobalDelay.ToString());
+                if (inputbox.ShowDialog() == true)
+                {
+                    try
+                    {
+                        int newdelay = Convert.ToInt32(inputbox.ResponseText);
+                        if (newdelay <= 0)
+                        {
+                            MessageBox.Show("Please enter a positive number greater than 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else if (newdelay > 0 && newdelay <= 120)
+                        {
+                            selectedprofile.GlobalDelay = newdelay;
+                            SaveDataToJson();
+                            Profiles.Items.Refresh();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a value less than 120", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Please enter a valid integer", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
+        private void RemoveDelay_Click(object sender, RoutedEventArgs e)
+        {
+            if (Profiles.SelectedItem is Profile selectedprofile)
+            {
+                if (AppsLB.SelectedItem is Apps selectedapp)
+                {
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to remove all launch delays from each app? Global Launch Delay will take effect.", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Hand);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        foreach (Apps selectedApp in selectedprofile.Applications)
+                        {
+                            selectedApp.Delay = 0;
+                            SaveDataToJson();
+                            AppsLB.Items.Refresh();
+                        }
+                    }
+                }
+            }
+        }
+        private void ChangeDelay_Click(object sender, RoutedEventArgs e)
+        {
+            if (Profiles.SelectedItem is Profile selectedprofile)
+            {
+                if (AppsLB.SelectedItem is Apps selectedapp)
+                {
+                    InputBox inputbox = new InputBox("Enter a new launch delay in seconds", "Change Launch Delay", selectedapp.Delay.ToString());
+                    if (inputbox.ShowDialog() == true)
+                    {
+                        
+                        try
+                        {
+                            int newdelay = Convert.ToInt32(inputbox.ResponseText);
+                            if (newdelay <= 0)
+                            {
+                                MessageBox.Show("Please enter a positive number greater than 0", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else if (newdelay > 0 && newdelay <= 120)
+                            {
+                                selectedapp.Delay = newdelay;
+                                SaveDataToJson();
+                                AppsLB.Items.Refresh();
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Please enter a valid integer","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        
+                    }
+                }
+            }
+            
+        }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
@@ -328,7 +427,7 @@ namespace Just_One_Click
 
                     // Set the ItemsSource directly to the AppsLB ListBox
                     AppsLB.ItemsSource = selectedProfile.Applications;
-                    delay = selectedProfile.Delay;
+                    delay = selectedProfile.GlobalDelay;
                 }
                 else
                 {
@@ -399,6 +498,7 @@ namespace Just_One_Click
                     ID = "new",
                     Name = "New App",
                     Path = "C:\\Program Files\\NewApp.exe",
+                    Delay = 5,
                     Favicon = null,
                     isBrowserSource = false
                 };
@@ -425,7 +525,7 @@ namespace Just_One_Click
             {
                 ID = Guid.NewGuid().ToString(),
                 Name = newProfileName,
-                Delay = 5, // You can set default values here
+                GlobalDelay = 5, // You can set default values here
                 Applications = new List<Apps>() // Initialize the Applications list
             };
 
@@ -647,7 +747,7 @@ namespace Just_One_Click
         {
             ID = "PlaceholderProfile",
             Name = "Placeholder Profile",
-            Delay = 5,
+            GlobalDelay = 5,
             Num = 0,
             Applications = new List<Apps>
             {
@@ -656,6 +756,7 @@ namespace Just_One_Click
                     ID = "PlaceholderApp",
                     Name = "Placeholder",
                     Path = "C:\\Path\\To\\Application.exe", // Provide a default path
+                    Delay = 5,
                     Favicon = null,
                     isBrowserSource = false,
                 }
@@ -796,6 +897,8 @@ namespace Just_One_Click
                         ID = Guid.NewGuid().ToString(), // Generate a new ID for the duplicated app
                         Name = selectedApp.Name,
                         Path = selectedApp.Path,
+                        Delay = selectedApp.Delay,
+                        isBrowserSource = selectedApp.isBrowserSource,
                         Favicon = selectedApp.Favicon
                     };
 
@@ -827,6 +930,7 @@ namespace Just_One_Click
                 Name = newName,
                 Path = newUrl,
                 Favicon = "",
+                Delay = 5,
                 isBrowserSource = true,
                 isTextSource = false
             };
@@ -896,6 +1000,7 @@ namespace Just_One_Click
                 Name = "New Text Source",
                 Path = "Path\\To\\Text\\Document",
                 Favicon = "",
+                Delay = 5,
                 isBrowserSource = false,
                 isTextSource = true
             };
@@ -957,6 +1062,26 @@ namespace Just_One_Click
                     RefreshButton.Foreground = white;
                 }
 
+                if (dSettings.VersionInfo == true)
+                {
+                    try
+                    {
+
+                        string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DiamondPG\\version.txt";
+                        Trace.WriteLine(path);
+                        string text = File.ReadAllText(path);
+                        VersionTXT.Text = "v" + text;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Version Info Setting Not Applied", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    VersionTXT.Text = "";
+                }
+
             }
             catch
             {
@@ -969,7 +1094,7 @@ namespace Just_One_Click
         {
             public string ID { get; set; }
             public string Name { get; set; }
-            public int Delay { get; set; }
+            public int GlobalDelay { get; set; }
             public int Num { get; set; }
             public List<Apps> Applications { get; set; }
         }
@@ -977,6 +1102,7 @@ namespace Just_One_Click
         public class Apps
         {
             public string ID { get; set; }
+            public int Delay { get; set; }
             public string Name { get; set; }
             public string Path { get; set; }
             public string Favicon { get; set; }
@@ -988,6 +1114,7 @@ namespace Just_One_Click
         {
         public bool DarkModeEnabled { get; set; }
         public bool DeleteConfirmation { get; set; }
+        public bool VersionInfo { get; set; }
         public bool IsFirstBoot { get; set; }
         }
     }

@@ -12,6 +12,9 @@
     <Compile Update="BooleanBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Credits.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="FileBrowser.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -24,6 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="BooleanBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Credits.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="FileBrowser.xaml">

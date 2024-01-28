@@ -12,6 +12,7 @@ namespace Just_One_Click
     {
         public bool DarkModeEnabled { get; set; }
         public bool DeleteConfirmation { get; set; }
+        public bool VersionInfo { get; set; }
         public bool isFirstBoot { get; set; }
     }
 
@@ -80,7 +81,7 @@ namespace Just_One_Click
             {
                 // Update your UI controls with the loaded settings
                 DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
-               
+                VersionCheckbox.IsChecked = _appSettings.VersionInfo;
                 ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
                 
             }
@@ -176,6 +177,12 @@ namespace Just_One_Click
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
             MainWindow main = new MainWindow();
             main.WritePlaceholderJson(saveFile);
+        }
+
+        private void Credits_Click(object sender, RoutedEventArgs e)
+        {
+            Just_One_Click.Credits credits = new Just_One_Click.Credits();
+            credits.Show();
         }
     }
 }

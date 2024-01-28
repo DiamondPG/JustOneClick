@@ -86,8 +86,8 @@ namespace Updater
             }
             try
             {
-                string path = Directory.GetCurrentDirectory();
-                string saveFile = System.IO.Path.Combine(path + "/version.txt");
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string saveFile = System.IO.Path.Combine(path + "\\DiamondPG\\version.txt");
                 currentVersion = File.ReadAllText(saveFile);
             }
             catch

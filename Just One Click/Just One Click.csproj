@@ -17,6 +17,7 @@
     <None Remove="icon.ico" />
     <None Remove="images\add.png" />
     <None Remove="images\delete.png" />
+    <None Remove="images\discord.png" />
     <None Remove="images\duplicate.png" />
     <None Remove="images\favicon.png" />
     <None Remove="images\globe.png" />
@@ -32,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\discord.png" />
     <Resource Include="images\fallbackimage.png" />
     <Resource Include="icon.ico" />
     <Resource Include="images\add.png" />

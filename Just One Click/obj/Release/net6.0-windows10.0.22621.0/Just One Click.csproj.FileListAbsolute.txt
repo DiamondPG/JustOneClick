@@ -15,6 +15,7 @@ C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-win
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\InputBox.baml
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\SettingsWindow.baml
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\BooleanBox.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Credits.g.cs
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\FileBrowser.g.cs
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\InputBox.g.cs
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\MainWindow.g.cs
@@ -25,6 +26,7 @@ C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-win
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click_MarkupCompile.cache
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click_MarkupCompile.lref
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\BooleanBox.baml
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Credits.baml
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\MainWindow.baml
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click.g.resources
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click.GeneratedMSBuildEditorConfig.editorconfig

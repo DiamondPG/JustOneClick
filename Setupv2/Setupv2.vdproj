@@ -161,7 +161,7 @@
             "SourcePath" = "8:..\\version.txt"
             "TargetName" = "8:version.txt"
             "Tag" = "8:"
-            "Folder" = "8:_6D9B38BD1CE64088961B035077591994"
+            "Folder" = "8:_2BCBA3E09F0843DCB317E575C4A3A261"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -336,15 +336,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
-        "ProductCode" = "8:{34107559-2CE1-4A95-9B41-F80BF5F11A99}"
-        "PackageCode" = "8:{89AABF55-5D41-405F-9F56-40115E6CEEF8}"
+        "ProductCode" = "8:{B504EF6D-0D21-4C29-BA9F-676C02A63217}"
+        "PackageCode" = "8:{229B6862-3D29-4D0B-8895-6F9D9E79BF6E}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.0.3"
+        "ProductVersion" = "8:0.0.4"
         "Manufacturer" = "8:DiamondPG"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -789,41 +789,6 @@
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
                             "Setting" = "3:1"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                        }
-                    }
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_55BC69910DD64725BEBB7495DD934349"
-                    {
-                    "Sequence" = "3:100"
-                    "DisplayName" = "8:Splash"
-                    "UseDynamicProperties" = "11:TRUE"
-                    "IsDependency" = "11:FALSE"
-                    "SourcePath" = "8:<VsdDialogDir>\\VsdSplashDlg.wid"
-                        "Properties"
-                        {
-                            "SplashBitmap"
-                            {
-                            "Name" = "8:SplashBitmap"
-                            "DisplayName" = "8:#1013"
-                            "Description" = "8:#1113"
-                            "Type" = "3:8"
-                            "ContextData" = "8:Bitmap"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "UsePlugInResources" = "11:TRUE"
-                            }
-                            "Sunken"
-                            {
-                            "Name" = "8:Sunken"
-                            "DisplayName" = "8:#1007"
-                            "Description" = "8:#1107"
-                            "Type" = "3:5"
-                            "ContextData" = "8:4;True=4;False=0"
-                            "Attributes" = "3:0"
-                            "Setting" = "3:0"
-                            "Value" = "3:4"
-                            "DefaultValue" = "3:4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
