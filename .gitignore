@@ -5,4 +5,8 @@
 .env
 
 # End of https://www.toptal.com/developers/gitignore/api/dotenv
+<<<<<<< Updated upstream
 secrets.env
+=======
+*.env
+>>>>>>> Stashed changes
