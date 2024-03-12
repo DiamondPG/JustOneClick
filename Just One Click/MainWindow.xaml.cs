@@ -25,6 +25,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Windows.UI.Notifications;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
@@ -33,10 +34,22 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.Win32;
 using System.Windows.Media.Imaging;
 using System.Windows.Interop;
-using static Just_One_Click.MainWindow;
 using System.Net.NetworkInformation;
 using System.Security.Policy;
 using ABI.System;
+using Octokit;
+using System.Net.Http;
+using Google.Cloud.Firestore;
+using Google.Cloud.Firestore.V1;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Firebase;
+using auth = Just_One_Click.Auth;
+using System.Buffers.Text;
+using Google.Api;
+using Windows.UI.Notifications;
+using System.Windows.Threading;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace Just_One_Click
 {
@@ -50,6 +63,8 @@ namespace Just_One_Click
     public partial class MainWindow : Window
     {
         string log = "";
+        
+
         void Write(string str)
         {
 
@@ -63,17 +78,22 @@ namespace Just_One_Click
         }
         int delay = 5;
         ImageSource FaviconSource;
+        bool Authenticated = false;
         Settings dSettings = new Settings();
+        int currentRelease = 3; // 3 For Alpha, 2 For Beta, 1 For Stable, 4 For Dev. Auth only works on 3.
+        bool scheduled = false;
         public MainWindow()
         {
             InitializeComponent();
-            //Authenticate();
+            //AuthenticateFirebase();
+            
+            
+
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
             savePath = System.IO.Path.Combine(savePath + "/Just One Click/");
             string saveFile = System.IO.Path.Combine(savePath + "savedata.json");
-            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical; //no clue what this does, so im not getting rid of it
+            System.Diagnostics.PresentationTraceSources.DataBindingSource.Switch.Level = System.Diagnostics.SourceLevels.Critical; //no clue what this does, but it fixed a bug so, let's keep it.
             Activated += MainWindow_Activated;
-            
 
             string SerializedJSON = "";
             string ReserializedJSON = "";
@@ -83,10 +103,140 @@ namespace Just_One_Click
             Initialize();
             
         }
-
-        private void Authenticate()
+        /*public async Task AuthenticateFirebase()
         {
+            string apiKey = "your-api-key";
+            string email = "user@example.com";
+            string password = "your-password";
 
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(apiKey));
+
+            try
+            {
+                // Log in the user
+                var auth = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+
+                // Access the user's information
+                Trace.WriteLine($"User ID: {auth.User.LocalId}");
+                Trace.WriteLine($"Token: {auth.FirebaseToken}");
+            }
+            catch (FirebaseAuthException e)
+            {
+                Trace.WriteLine($"Authentication failed: {e.Reason}");
+            }
+
+        }*/
+        
+        private async Task AuthenticatePaste(string key)
+        {
+            try
+            {
+                
+                
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\DiamondPG\\f.env";
+                if(key.Length > 15)
+                {
+                    string apiKey = "";
+                    if (File.Exists(path))
+                    {
+                        apiKey = File.ReadAllText(path);
+                    }
+                    else
+                    {
+                        Trace.WriteLine("Failed API");
+                    }
+
+                    if (!string.IsNullOrEmpty(apiKey))
+                    {
+
+                        string pasteCode = "vdZhbcKf";  // Replace with your actual paste content
+                        string pasteName = "JOC keys";
+
+                        using (HttpClient client = new HttpClient())
+                        {
+                            string apiEndpoint = "https://pastebin.com/api/api_post.php";
+
+                            // Set your parameters
+                            var parameters = new
+                            {
+                                api_dev_key = apiKey,
+                                api_paste_code = pasteCode,
+                                api_paste_private = "2"  // 2 means it's a private paste   
+                            };
+
+                            // Make the API request
+                            HttpResponseMessage response = await client.PostAsJsonAsync(apiEndpoint, parameters);
+
+                            // Check if the request was successful
+                            if (response.IsSuccessStatusCode)
+                            {
+                                string responseBody = await response.Content.ReadAsStringAsync();
+                                Trace.WriteLine(responseBody);
+                                if (responseBody.Contains(key))
+                                {
+                                    Trace.WriteLine("Authed");
+                                    Authenticated = true;
+                                }
+                                else
+                                {
+                                    Close();
+                                }
+                            }
+                            else
+                            {
+                                Trace.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Trace.WriteLine("Fail");
+                    }
+                }
+                else
+                {
+                    Trace.WriteLine("20");
+                }
+                
+                
+            }
+            catch
+            {
+                Trace.WriteLine("Catch");
+            }
+            
+        }
+
+        private void AuthorizePartTreaux()
+        {
+            string fullRegistryPath = @"HKEY_CURRENT_USER\Software\DiamondPG\JustOneClick";
+            string registryValueName = "Key";
+
+            string key = auth.GetRegister(fullRegistryPath, registryValueName);
+
+            if (key != null && auth.IsLicensed(key, "Just_One_Click.keys.txt"))
+            {
+                auth._isLicensed = true;
+                Authenticated = true;
+            }
+            else
+            {
+                auth._isLicensed = false;
+                InputBox input = new InputBox("Enter Product Key", "Activation");
+                input.ShowDialog();
+                
+                if (auth.IsLicensed(input.ResponseText, "Just_One_Click.keys.txt"))
+                {
+                    auth.SetRegister(@"HKEY_CURRENT_USER\Software\DiamondPG\JustOneClick", "Key", input.ResponseText);
+                    
+                    auth._isLicensed = true;
+                    MessageBox.Show("Successful registration.");
+                    Authenticated = true;
+                }
+                else
+                    MessageBox.Show("The key is not licensed.");
+            }   
         }
 
         private void RipImage()
@@ -97,88 +247,90 @@ namespace Just_One_Click
 
         private async void LaunchBTN_Click(object sender, RoutedEventArgs e)
         {
-            Log("Launch Clicked");
-
-            if (Profiles.SelectedItem is Profile selectedProfile)
+            if (scheduled == false)
             {
-                this.WindowState = WindowState.Minimized;
-                foreach (Apps selectedApp in selectedProfile.Applications)
+                Log("Launch Clicked");
+
+                if (Profiles.SelectedItem is Profile selectedProfile)
                 {
-                    try
+                    this.WindowState = WindowState.Minimized;
+                    foreach (Apps selectedApp in selectedProfile.Applications)
                     {
-                        if (selectedApp.isBrowserSource == true)
+                        try
                         {
-                            string path = "";
-                            if (!selectedApp.Path.StartsWith("http://") && !selectedApp.Path.StartsWith("https://"))
+                            if (selectedApp.isBrowserSource == true)
                             {
-                                // If the URL doesn't start with "http://" or "https://", prepend "https://"
-                                path = "https://" + selectedApp.Path;
-                            }
-                            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
-                        } 
-                        else if (selectedApp.isTextSource == true)
-                        {
-                            try
-                            {
-                                // Ensure the file exists before attempting to open it
-                                if (File.Exists(selectedApp.Path))
+                                string path = "";
+                                if (!selectedApp.Path.StartsWith("http://") && !selectedApp.Path.StartsWith("https://"))
                                 {
-                                    Process.Start(new ProcessStartInfo
+                                    // If the URL doesn't start with "http://" or "https://", prepend "https://"
+                                    path = "https://" + selectedApp.Path;
+                                }
+                                Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                            }
+                            else if (selectedApp.isTextSource == true)
+                            {
+                                try
+                                {
+                                    // Ensure the file exists before attempting to open it
+                                    if (File.Exists(selectedApp.Path))
                                     {
-                                        FileName = selectedApp.Path,
-                                        UseShellExecute = true
-                                    });
+                                        Process.Start(new ProcessStartInfo
+                                        {
+                                            FileName = selectedApp.Path,
+                                            UseShellExecute = true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"File not found: {selectedApp.Path}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    }
                                 }
-                                else
+                                catch (System.Exception ex)
                                 {
-                                    MessageBox.Show($"File not found: {selectedApp.Path}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    this.WindowState = WindowState.Normal;
+                                    MessageBox.Show($"Error opening text file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 }
-                            }
-                            catch (System.Exception ex)
-                            {
-                                this.WindowState = WindowState.Normal;
-                                MessageBox.Show($"Error opening text file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                        }
-                        else
-                        {
-                            // Start the selected application
-                            System.Diagnostics.Process.Start(selectedApp.Path);
-                            Log($"Launching: {selectedApp.Path}");
-                            Profile profile = new Profile();
-                            if (selectedApp.Delay >= 1)
-                            {
-                                await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
-                            } 
-                            else if(profile.GlobalDelay >= 1)
-                            {
-                                await Task.Delay(System.TimeSpan.FromSeconds(profile.GlobalDelay));
                             }
                             else
                             {
-                                await Task.Delay(System.TimeSpan.FromSeconds(delay));
+                                // Start the selected application
+                                System.Diagnostics.Process.Start(selectedApp.Path);
+                                Log($"Launching: {selectedApp.Path}");
+                                Profile profile = new Profile();
+                                if (selectedApp.Delay >= 1)
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
+                                }
+                                else if (profile.GlobalDelay >= 1)
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(profile.GlobalDelay));
+                                }
+                                else
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(delay));
+                                }
+
                             }
-                            
+                        }
+                        catch (System.Exception ex)
+                        {
+                            this.WindowState = WindowState.Normal;
+                            // Handle any exceptions that may occur during the process start
+                            MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
-                    catch (System.Exception ex)
-                    {
-                        this.WindowState = WindowState.Normal;
-                        // Handle any exceptions that may occur during the process start
-                        MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                }
+                else
+                {
+                    this.WindowState = WindowState.Normal;
+                    MessageBox.Show("Please select a profile to launch applications.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            else
-            {
-                this.WindowState = WindowState.Normal;
-                MessageBox.Show("Please select a profile to launch applications.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-
         }
 
         
-        public void Initialize()
+        public async void Initialize()
         {
 
             string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); // Checks Documents Folder for path
@@ -187,6 +339,14 @@ namespace Just_One_Click
             string settingsFile = System.IO.Path.Combine(savePath + "appsettings.json");
             string readjson = File.ReadAllText(settingsFile);
             
+            AuthorizePartTreaux();
+
+            if(Authenticated == false && currentRelease == 3)
+            {
+                MessageBox.Show("Auth Failed. To Continue Please Enter a Valid License Key", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+            }
+
             Settings dSettings = new Settings(); // Initialize the object
             Write($"isFirstBoot: {dSettings.IsFirstBoot}"); // Log the initial value
                                                             // Read the settings file and deserialize it
@@ -257,7 +417,6 @@ namespace Just_One_Click
                 try
                 {
 
-                    Clipboard.SetText(saveFile);
                     json = File.ReadAllText(saveFile);
 
                     djson = JsonConvert.DeserializeObject<List<Profile>>(json);
@@ -316,10 +475,14 @@ namespace Just_One_Click
             }
             AppsLB.ItemsSource = null;
             AppsLB.Items.Refresh();
-            
-            
-        }
 
+            DispatcherTimer pulse = new DispatcherTimer();
+            pulse.Interval = System.TimeSpan.FromMilliseconds(1000);
+            
+            pulse.Start();
+
+        }
+        
         private void ChangeGlobalDelay_Click(object sender, RoutedEventArgs e)
         {
             if (Profiles.SelectedItem is Profile selectedprofile)
@@ -679,7 +842,7 @@ namespace Just_One_Click
                         // Refresh the ListBox to reflect the changes
                         AppsLB.Items.Refresh();
 
-                        string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                        //string newFaviconPath = ExtractFavicon(selectedApp.Path);
                         SaveDataToJson();
                     }
                 }
@@ -692,7 +855,7 @@ namespace Just_One_Click
                         // Refresh the ListBox to reflect the changes
                         AppsLB.Items.Refresh();
 
-                        string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                        //string newFaviconPath = ExtractFavicon(selectedApp.Path);
                         SaveDataToJson();
                     }
                 }
@@ -706,7 +869,7 @@ namespace Just_One_Click
                         // Refresh the ListBox to reflect the changes
                         AppsLB.Items.Refresh();
 
-                        string newFaviconPath = ExtractFavicon(selectedApp.Path);
+                        //string newFaviconPath = ExtractFavicon(selectedApp.Path);
                         SaveDataToJson();
                     }
 
@@ -759,6 +922,8 @@ namespace Just_One_Click
                     Delay = 5,
                     Favicon = null,
                     isBrowserSource = false,
+                    isTextSource = false,
+                    isVerified = false
                 }
             }
         }
@@ -782,7 +947,7 @@ namespace Just_One_Click
             try
             {
                 string savePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                savePath = System.IO.Path.Combine(savePath, "Just One Click/");
+                savePath = System.IO.Path.Combine(savePath, "Just One Click\\");
                 string saveFile = System.IO.Path.Combine(savePath, "savedata.json");
 
                 string serializedData = JsonConvert.SerializeObject(Profiles.ItemsSource, Formatting.Indented);
@@ -820,7 +985,7 @@ namespace Just_One_Click
             }
         }
 
-
+        
         BitmapSource bitmapSource;
         private void ResetFavicon_Click(object sender, RoutedEventArgs e)
         {
@@ -836,7 +1001,7 @@ namespace Just_One_Click
                 }
             }
         }
-
+        
         private string ExtractFavicon(string exeFilePath)
         {
             try
@@ -853,12 +1018,7 @@ namespace Just_One_Click
                 Apps app = new Apps();
                 
                 AppsLB.Items.Refresh();
-                using (FileStream stream = new FileStream(tempIconPath, FileMode.Create))
-                {
-                    PngBitmapEncoder encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                    encoder.Save(stream);
-                }
+                
 
                 return tempIconPath;
             }
@@ -932,7 +1092,8 @@ namespace Just_One_Click
                 Favicon = "",
                 Delay = 5,
                 isBrowserSource = true,
-                isTextSource = false
+                isTextSource = false,
+                isVerified = false
             };
 
             // Add the new browser source to the selected profile's Applications list
@@ -979,6 +1140,7 @@ namespace Just_One_Click
             {
                 // User clicked OK, update the newUrl
                 newUrl = inputBox.ResponseText;
+                
             }
             
 
@@ -1018,6 +1180,64 @@ namespace Just_One_Click
                 Profiles.Items.Refresh();
             }
         }
+        private void ScheduleLaunch_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DateTimePicker picker = new DateTimePicker();
+                picker.ShowDialog();
+                scheduled = true;
+                // Get user input from the DateTimePicker control
+                DateTime selectedTime = picker.selectedDate;
+                System.TimeSpan selectedTimeSpan = picker.selectedTime;
+                
+                // Combine the date and time parts to get the selected future time
+
+                string time = selectedTime.ToString();
+                string subtime = time.Substring(0, time.Length - 8);
+                subtime += selectedTimeSpan.ToString();
+                Trace.WriteLine(subtime);
+                DateTime remaining = DateTime.Parse(subtime);
+                System.TimeSpan remainingtime = System.TimeSpan.Parse(remaining.ToShortTimeString());
+                Trace.WriteLine(remainingtime);
+                DispatcherTimer timer = new DispatcherTimer();
+
+                
+                DateTime startDate = DateTime.Now;
+                System.TimeSpan t = remaining - startDate;
+                DateTime difference = new DateTime(t.Ticks);
+                System.TimeSpan timediff = new System.TimeSpan(t.Ticks);
+                LaunchBTN.Content = $"Launching at {subtime}";
+                Trace.WriteLine(timediff);
+                timer.Interval += timediff;
+                
+                timer.Tick += TimerTick;
+                
+                timer.Start();
+            }
+            catch
+            {
+                MessageBox.Show($"Error Scheduling Launch", "Error");
+            }
+        }
+        private void TimerTick(object sender, EventArgs e)
+        {
+            try
+            {
+                (sender as DispatcherTimer).Stop();
+                Trace.WriteLine("Triggered");
+                scheduled = false;
+                LaunchBTN.Content = "Launch";
+                new ToastContentBuilder()
+                    .AddText("Launching Apps:")
+                    .Show(); 
+                LaunchBTN_Click(LaunchBTN, new RoutedEventArgs());
+            }
+            catch (System.Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+            }
+        }
         private void MainWindow_Activated(object sender, EventArgs e)
         {
             try
@@ -1029,11 +1249,16 @@ namespace Just_One_Click
                 dSettings = JsonConvert.DeserializeObject<Settings>(json);
                 var black = System.Windows.Media.Brushes.Black;
                 SolidColorBrush white = new SolidColorBrush(System.Windows.Media.Color.FromRgb(237, 237, 237));
+                if(dSettings.deauth == true)
+                {
+                    dSettings.deauth = false;
+                    string sjson = JsonConvert.SerializeObject(dSettings, Formatting.Indented);
+                    File.WriteAllText(settingsFile, sjson);
+                    Close();
+                }
 
                 if (dSettings.DarkModeEnabled == false)
                 {
-                    
-                    
                     Console.Foreground = black;
                     grid.Background = white;
                     Title.Foreground = black;
@@ -1108,6 +1333,7 @@ namespace Just_One_Click
             public string Favicon { get; set; }
             public bool isBrowserSource { get; set; }
             public bool isTextSource { get; set; }
+            public bool isVerified { get; set; }
         }
 
         public class Settings
@@ -1116,6 +1342,10 @@ namespace Just_One_Click
         public bool DeleteConfirmation { get; set; }
         public bool VersionInfo { get; set; }
         public bool IsFirstBoot { get; set; }
+        public bool deauth { get; set; }
+
         }
+
+        
     }
 }
