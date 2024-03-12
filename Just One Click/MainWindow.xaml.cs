@@ -80,7 +80,7 @@ namespace Just_One_Click
         ImageSource FaviconSource;
         bool Authenticated = false;
         Settings dSettings = new Settings();
-        int currentRelease = 3; // 3 For Alpha, 2 For Beta, 1 For Stable, 4 For Dev. Auth only works on 3.
+        int currentRelease = 2; // 3 For Alpha, 2 For Beta, 1 For Stable, 4 For Dev. Auth only works on 3.
         bool scheduled = false;
         public MainWindow()
         {
@@ -103,29 +103,6 @@ namespace Just_One_Click
             Initialize();
             
         }
-        /*public async Task AuthenticateFirebase()
-        {
-            string apiKey = "your-api-key";
-            string email = "user@example.com";
-            string password = "your-password";
-
-            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(apiKey));
-
-            try
-            {
-                // Log in the user
-                var auth = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
-
-                // Access the user's information
-                Trace.WriteLine($"User ID: {auth.User.LocalId}");
-                Trace.WriteLine($"Token: {auth.FirebaseToken}");
-            }
-            catch (FirebaseAuthException e)
-            {
-                Trace.WriteLine($"Authentication failed: {e.Reason}");
-            }
-
-        }*/
         
         private async Task AuthenticatePaste(string key)
         {
@@ -223,25 +200,31 @@ namespace Just_One_Click
             else
             {
                 auth._isLicensed = false;
-                InputBox input = new InputBox("Enter Product Key", "Activation");
-                input.ShowDialog();
-                
-                if (auth.IsLicensed(input.ResponseText, "Just_One_Click.keys.txt"))
+                if (currentRelease == 3)
                 {
-                    auth.SetRegister(@"HKEY_CURRENT_USER\Software\DiamondPG\JustOneClick", "Key", input.ResponseText);
-                    
-                    auth._isLicensed = true;
-                    MessageBox.Show("Successful registration.");
-                    Authenticated = true;
+                    InputBox input = new InputBox("Enter Product Key", "Activation");
+                    input.ShowDialog();
+
+                    if (auth.IsLicensed(input.ResponseText, "Just_One_Click.keys.txt"))
+                    {
+                        auth.SetRegister(@"HKEY_CURRENT_USER\Software\DiamondPG\JustOneClick", "Key", input.ResponseText);
+
+                        auth._isLicensed = true;
+                        MessageBox.Show("Successful registration.");
+                        Authenticated = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The key is not licensed.");
+                    }
+
                 }
                 else
-                    MessageBox.Show("The key is not licensed.");
+                {
+                    auth._isLicensed = true;
+                    Authenticated = true;
+                }
             }   
-        }
-
-        private void RipImage()
-        {
-
         }
 
 
