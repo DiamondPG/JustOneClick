@@ -4,7 +4,9 @@ using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using static Just_One_Click.MainWindow;
+using static Google.Rpc.Context.AttributeContext.Types;
+using main = Just_One_Click.MainWindow;
+using auth = Just_One_Click.Auth;
 
 namespace Just_One_Click
 {
@@ -14,6 +16,7 @@ namespace Just_One_Click
         public bool DeleteConfirmation { get; set; }
         public bool VersionInfo { get; set; }
         public bool isFirstBoot { get; set; }
+        public bool deauth { get; set; }
     }
 
     public partial class SettingsWindow : Window
@@ -183,6 +186,18 @@ namespace Just_One_Click
         {
             Just_One_Click.Credits credits = new Just_One_Click.Credits();
             credits.Show();
+        }
+
+        private void DeAuth_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult message = MessageBox.Show("Are you sure you want to de-auth your account? This will CLOSE the program and REMOVE your activation key.","Confirmation",MessageBoxButton.YesNoCancel,MessageBoxImage.Stop);
+            if(message == MessageBoxResult.Yes)
+            {
+                auth.SetRegister(@"HKEY_CURRENT_USER\Software\DiamondPG\JustOneClick", "Key", "");
+                _appSettings.deauth = true;
+                SaveSettings();
+                Close();
+            }
         }
     }
 }

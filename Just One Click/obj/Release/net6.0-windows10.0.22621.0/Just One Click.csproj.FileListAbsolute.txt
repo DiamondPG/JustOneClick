@@ -39,3 +39,27 @@ C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-win
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click.pdb
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\Just One Click.genruntimeconfig.cache
 C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\ref\Just One Click.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Api.CommonProtos.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Api.Gax.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Api.Gax.Grpc.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Apis.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Apis.Auth.PlatformServices.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Apis.Auth.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Apis.Core.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Cloud.Firestore.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Cloud.Firestore.V1.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Cloud.Location.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.LongRunning.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Google.Protobuf.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Grpc.Auth.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Grpc.Core.Api.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Grpc.Net.Client.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Grpc.Net.Common.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\System.Linq.Async.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Firebase.Auth.dll
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\DateTimePicker.g.cs
+C:\Users\Harma\source\repos\Just One Click\Just One Click\obj\Release\net6.0-windows10.0.22621.0\DateTimePicker.baml
+C:\Users\Harma\source\repos\Just One Click\Just One Click\bin\Release\net6.0-windows10.0.22621.0\Microsoft.Toolkit.Uwp.Notifications.dll

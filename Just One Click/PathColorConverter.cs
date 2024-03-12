@@ -13,11 +13,13 @@ namespace Just_One_Click
         {
             if (value is string path && !string.IsNullOrEmpty(path) && (File.Exists(path) || PingHost(path)))
             {
-                return Brushes.Gray; // Valid path, use white color
+                return Brushes.Gray;
+                MainWindow.Apps apps = new MainWindow.Apps();
+                apps.isVerified = true;
             }
             else
             {
-                return Brushes.Red; // Invalid path, use red color
+                return Brushes.Red;
             }
         }
 

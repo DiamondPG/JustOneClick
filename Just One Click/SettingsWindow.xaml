@@ -24,6 +24,7 @@
                         <Button x:Name="ResetButton" Foreground="Red" Width="180" Content="Reset Save File" Click="ResetClick" Margin="0,10,0,0"/>
                         <Button x:Name="Credits" Width="179" Content="Credits" Click="Credits_Click" Margin="10,10,0,0"/>
                     </StackPanel>
+                    <Button x:Name="DeAuth" Click="DeAuth_Click" Content="Sign Out" Foreground="Red" Margin="5"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

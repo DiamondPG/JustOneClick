@@ -44,7 +44,7 @@
             </Button.Resources>
             <Button.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Schedule Launch">
+                    <MenuItem Header="Schedule Launch" Click="ScheduleLaunch_Click">
                         <MenuItem.Icon>
                             <Image Source="images/timer.png"/>
                         </MenuItem.Icon>
@@ -215,7 +215,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- Image -->
-                        <Image Grid.Column="0" Grid.Row="0" Width="48" Height="48" Grid.ColumnSpan="2" Source="{Binding Favicon,FallbackValue=images/falbackimage.png}" Margin="5,10,150,0"/>
+                        <Image Grid.Column="0" Grid.Row="0" Width="48" Height="48" Grid.ColumnSpan="2" Source="images\fallbackimage.png" Margin="5,10,150,0"/>
 
                         <!-- TextBlock -->
                         <TextBlock Grid.Column="1" TextAlignment="Right" Height="30" Margin="0,0,5,0" Foreground="White" FontSize="18" Text="{Binding Name}" />
