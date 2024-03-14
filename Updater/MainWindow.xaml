@@ -28,6 +28,7 @@
                     Height="35" 
                     Click="LaunchButton_Click"/>
         </StackPanel>
+        <Button Content="Release Notes" x:Name="ReleaseNoteBTN" Click="ReleaseNotesBTN_Click" Width="150" Height="30" Margin="0,100,0,0"/>
         <ProgressBar x:Name="DownloadProgress"
                      Width="300" 
                      Height="20" 

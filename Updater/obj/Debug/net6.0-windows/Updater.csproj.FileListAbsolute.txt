@@ -22,3 +22,7 @@ C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\refi
 C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\Updater.pdb
 C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\Updater.genruntimeconfig.cache
 C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\ref\Updater.dll
+C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\MarkdownDialog.g.cs
+C:\Users\Harma\source\repos\Just One Click\Updater\bin\Debug\net6.0-windows\HtmlToXamlConverter.dll
+C:\Users\Harma\source\repos\Just One Click\Updater\bin\Debug\net6.0-windows\Markdig.dll
+C:\Users\Harma\source\repos\Just One Click\Updater\obj\Debug\net6.0-windows\MarkdownDialog.baml

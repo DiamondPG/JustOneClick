@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Dw0sgkIepLEy+spHw30BDrv9YFXLMQy8w0w7SmaSdSQPcucTC8PRGGyliQ5vVLt92/8L+wT6WMatSVVCb3lLuQ==",
+  "dgSpecHash": "oPVfut6z43maabKUEKW7WRn6rEuKSjPDbFjQqpDswHugs8yj4HcHEJoRcZFc2qZ/iax5HbXt8aHhmg3RYEbhAA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Harma\\source\\repos\\Just One Click\\Just One Click\\Just One Click.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,8 @@
     "C:\\Users\\Harma\\.nuget\\packages\\grpc.core.api\\2.53.0\\grpc.core.api.2.53.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\grpc.net.client\\2.53.0\\grpc.net.client.2.53.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\grpc.net.common\\2.53.0\\grpc.net.common.2.53.0.nupkg.sha512",
+    "C:\\Users\\Harma\\.nuget\\packages\\htmltoxamlconverter\\1.0.5727.24510\\htmltoxamlconverter.1.0.5727.24510.nupkg.sha512",
+    "C:\\Users\\Harma\\.nuget\\packages\\markdig\\0.35.0\\markdig.0.35.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
@@ -40,5 +42,16 @@
     "C:\\Users\\Harma\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.29\\microsoft.windows.sdk.net.ref.10.0.22621.29.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'HtmlToXamlConverter 1.0.5727.24510' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows10.0.22621'. This package may not be fully compatible with your project.",
+      "libraryId": "HtmlToXamlConverter",
+      "targetGraphs": [
+        "net6.0-windows10.0.22621"
+      ]
+    }
+  ]
 }

@@ -50,6 +50,8 @@ using Google.Api;
 using Windows.UI.Notifications;
 using System.Windows.Threading;
 using Microsoft.Toolkit.Uwp.Notifications;
+using System.Net;
+using static Just_One_Click.MainWindow;
 
 namespace Just_One_Click
 {
@@ -63,8 +65,8 @@ namespace Just_One_Click
     public partial class MainWindow : Window
     {
         string log = "";
-        
-
+        public string releaseNotes = "";
+        Profile profile = new Profile();
         void Write(string str)
         {
 
@@ -103,7 +105,110 @@ namespace Just_One_Click
             Initialize();
             
         }
-        
+        private void ShowSpinner()
+        {
+            Spinner.Visibility = System.Windows.Visibility.Visible;
+            Spinner.StartSpin();
+        }
+
+        private void HideSpinner()
+        {
+            Spinner.StopSpin();
+            Spinner.Visibility = System.Windows.Visibility.Hidden;
+        }
+        private async void GetReleaseNotes()
+        {
+            ShowSpinner();
+            await Task.Run(async () =>
+            {
+                if (CheckConnection("https://github.com"))
+                {
+                    string GetDownloadFolderPath()
+                    {
+                        return Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", String.Empty).ToString();
+                    }
+
+                    var client = new GitHubClient(new Octokit.ProductHeaderValue("JustOneClick"));
+                    string accessToken = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/DiamondPG/.env");
+                    client.Credentials = new Credentials(accessToken);
+                    var releases = client.Repository.Release.GetAll("DiamondPG", "JustOneClick").Result;
+                    string fileNameToDownload = "setup.zip";
+                    string filePathToDownload = GetDownloadFolderPath() + "/setup.zip";
+
+                    if (releases.Count > 0)
+                    {
+                        var latestRelease = releases[0];
+                        releaseNotes = latestRelease.Body;
+                    }
+                    else
+                    {
+                        Trace.WriteLine("No releases found for the repository.");
+                    }
+
+                    // Marshaling UI-related operations to the UI thread
+                    Dispatcher.Invoke(() =>
+                    {
+                        dSettings.isOffline = false;
+                        OfflineTXT.Visibility = System.Windows.Visibility.Hidden;
+                    });
+                }
+                else
+                {
+                    // Marshaling UI-related operations to the UI thread
+                    Dispatcher.Invoke(() =>
+                    {
+                        dSettings.isOffline = true;
+                        OfflineTXT.Visibility = System.Windows.Visibility.Visible;
+                    });
+                }
+            });
+
+            // Marshaling UI-related operations to the UI thread
+            Dispatcher.Invoke(() =>
+            {
+                HideSpinner();
+            });
+        }
+        private void SaveSettings()
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(dSettings, Formatting.Indented);
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Just One Click\\appsettings.json", json);
+                Trace.WriteLine(json);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Error saving settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        private bool CheckConnection(string URL)
+        {
+            
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Timeout = 2000;
+                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
         private async Task AuthenticatePaste(string key)
         {
             try
@@ -250,6 +355,18 @@ namespace Just_One_Click
                                     path = "https://" + selectedApp.Path;
                                 }
                                 Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                                if (selectedApp.Delay >= 1)
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
+                                }
+                                else if (profile.GlobalDelay >= 1)
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(profile.GlobalDelay));
+                                }
+                                else
+                                {
+                                    await Task.Delay(System.TimeSpan.FromSeconds(delay));
+                                }
                             }
                             else if (selectedApp.isTextSource == true)
                             {
@@ -263,6 +380,19 @@ namespace Just_One_Click
                                             FileName = selectedApp.Path,
                                             UseShellExecute = true
                                         });
+                                        
+                                        if (selectedApp.Delay >= 1)
+                                        {
+                                            await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
+                                        }
+                                        else if (profile.GlobalDelay >= 1)
+                                        {
+                                            await Task.Delay(System.TimeSpan.FromSeconds(profile.GlobalDelay));
+                                        }
+                                        else
+                                        {
+                                            await Task.Delay(System.TimeSpan.FromSeconds(delay));
+                                        }
                                     }
                                     else
                                     {
@@ -280,7 +410,7 @@ namespace Just_One_Click
                                 // Start the selected application
                                 System.Diagnostics.Process.Start(selectedApp.Path);
                                 Log($"Launching: {selectedApp.Path}");
-                                Profile profile = new Profile();
+                                
                                 if (selectedApp.Delay >= 1)
                                 {
                                     await Task.Delay(System.TimeSpan.FromSeconds(selectedApp.Delay));
@@ -327,16 +457,16 @@ namespace Just_One_Click
             if(Authenticated == false && currentRelease == 3)
             {
                 MessageBox.Show("Auth Failed. To Continue Please Enter a Valid License Key", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
+                System.Windows.Application.Current.Shutdown();
             }
 
             Settings dSettings = new Settings(); // Initialize the object
-            Write($"isFirstBoot: {dSettings.IsFirstBoot}"); // Log the initial value
+            //Write($"isFirstBoot: {dSettings.IsFirstBoot}"); // Log the initial value
                                                             // Read the settings file and deserialize it
-            Write($"Read JSON from file: {readjson}"); // Log the JSON read from the file
+            //Write($"Read JSON from file: {readjson}"); // Log the JSON read from the file
 
             dSettings = JsonConvert.DeserializeObject<Settings>(readjson);
-            Write($"isFirstBoot after deserialization: {dSettings?.IsFirstBoot}"); // Log the value after deserialization
+            //Write($"isFirstBoot after deserialization: {dSettings?.IsFirstBoot}"); // Log the value after deserialization
 
             // Check if the settings file exists
             if (!File.Exists(settingsFile))
@@ -351,12 +481,12 @@ namespace Just_One_Click
                     DarkModeEnabled = true,
                     DeleteConfirmation = true,
                     VersionInfo = true,
-                    IsFirstBoot = false  // Set isFirstBoot to false
+                    IsFirstBoot = false
                 };
 
                 // Serialize the Settings object to JSON
                 string json = JsonConvert.SerializeObject(placeholderSettings, Formatting.Indented);
-                Write($"Serialized JSON: {json}"); // Log the serialized JSON
+                //Write($"Serialized JSON: {json}"); // Log the serialized JSON
 
                 try
                 {
@@ -458,12 +588,12 @@ namespace Just_One_Click
             }
             AppsLB.ItemsSource = null;
             AppsLB.Items.Refresh();
-
             DispatcherTimer pulse = new DispatcherTimer();
             pulse.Interval = System.TimeSpan.FromMilliseconds(1000);
             
             pulse.Start();
-
+            GetReleaseNotes();
+            
         }
         
         private void ChangeGlobalDelay_Click(object sender, RoutedEventArgs e)
@@ -863,6 +993,7 @@ namespace Just_One_Click
             
 
         }
+        
 
         private void RenameProfile_Click(object sender, RoutedEventArgs e)
         {
@@ -1069,14 +1200,14 @@ namespace Just_One_Click
             // Create a new Apps object for the browser source
             Apps newBrowserSource = new Apps
             {
-                ID = Guid.NewGuid().ToString(),
+                ID = null,
                 Name = newName,
                 Path = newUrl,
                 Favicon = "",
                 Delay = 5,
                 isBrowserSource = true,
                 isTextSource = false,
-                isVerified = false
+                isVerified = null
             };
 
             // Add the new browser source to the selected profile's Applications list
@@ -1207,12 +1338,18 @@ namespace Just_One_Click
         {
             try
             {
+                string LaunchingApps = "";
+                foreach(Apps apps in AppsLB.Items)
+                {
+                    LaunchingApps += $"{apps.Name}\n {apps.Delay} second delay \n";
+                }
                 (sender as DispatcherTimer).Stop();
                 Trace.WriteLine("Triggered");
                 scheduled = false;
                 LaunchBTN.Content = "Launch";
                 new ToastContentBuilder()
                     .AddText("Launching Apps:")
+                    .AddText(LaunchingApps)
                     .Show(); 
                 LaunchBTN_Click(LaunchBTN, new RoutedEventArgs());
             }
@@ -1237,7 +1374,7 @@ namespace Just_One_Click
                     dSettings.deauth = false;
                     string sjson = JsonConvert.SerializeObject(dSettings, Formatting.Indented);
                     File.WriteAllText(settingsFile, sjson);
-                    Close();
+                    System.Windows.Application.Current.Shutdown();
                 }
 
                 if (dSettings.DarkModeEnabled == false)
@@ -1316,7 +1453,7 @@ namespace Just_One_Click
             public string Favicon { get; set; }
             public bool isBrowserSource { get; set; }
             public bool isTextSource { get; set; }
-            public bool isVerified { get; set; }
+            public bool? isVerified { get; set; }
         }
 
         public class Settings
@@ -1326,6 +1463,8 @@ namespace Just_One_Click
         public bool VersionInfo { get; set; }
         public bool IsFirstBoot { get; set; }
         public bool deauth { get; set; }
+        public bool LaunchAtStartup { get; set; }
+            public bool isOffline { get; set; }
 
         }
 

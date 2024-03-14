@@ -23,6 +23,7 @@ using Microsoft.Win32;
 using System.Timers;
 using System.IO.Compression;
 
+
 namespace Updater
 {
     /// <summary>
@@ -34,8 +35,8 @@ namespace Updater
         bool versionMatches = false;
         string currentVersion;
         string appPath = Environment.ProcessPath;
-        
-        
+        string releaseNotes = "";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +73,7 @@ namespace Updater
                 {
                     var latestRelease = releases[0]; // Assuming releases are sorted by date, so the first release is the latest.
                     Trace.WriteLine($"Latest release name: {latestRelease.Name}");
+                    releaseNotes = latestRelease.Body;
                     string versionNumber = latestRelease.Name.Replace("v", "");
                     version = versionNumber;
                 }
@@ -168,6 +170,16 @@ namespace Updater
                 MessageBox.Show($"Error launching application: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void ReleaseNotesBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ShowCustomMessageBox(releaseNotes);
+        }
+        private void ShowCustomMessageBox(string markdown)
+        {
+            MarkdownDialog dialog = new MarkdownDialog();
+            dialog.SetMarkdownContent(markdown);
+            dialog.ShowDialog();
+        }
         private void LaunchButton_Click(object sender, RoutedEventArgs e)
         {
             string path = Directory.GetCurrentDirectory();
@@ -181,7 +193,7 @@ namespace Updater
             {
                 try
                 {
-                    Process.Start("C:\\Users\\Harma\\source\\repos\\Just One Click\\Just One Click\\bin\\Release\\net6.0-windows10.0.22621.0\\Just One Click.exe");
+                    //Process.Start("C:\\Users\\Harma\\source\\repos\\Just One Click\\Just One Click\\bin\\Release\\net6.0-windows10.0.22621.0\\Just One Click.exe");
                 }
                 catch
                 {

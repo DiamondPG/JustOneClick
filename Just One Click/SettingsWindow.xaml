@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Just_One_Click.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Just_One_Click"
         Title="Settings" Height="300" Width="400"
         x:Name="Window"
         Background="#28282b"
@@ -8,6 +9,7 @@
         ResizeMode="NoResize"
         >
     <Grid>
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <!-- Add your settings UI controls here -->
             <StackPanel Margin="5">
@@ -15,11 +17,13 @@
                 <CheckBox Content="Dark Mode" Foreground="White" x:Name="DarkModeCheckbox" Margin="0,5,0,0" IsChecked="{Binding DarkModeEnabled}"/>
                 <CheckBox Content="Ask for Confirmation when deleting Profiles or Apps" Foreground="White" x:Name="ConfirmationCheckbox" Margin="0,5,0,0" IsChecked="{Binding DeleteConfirmation}"/>
                 <CheckBox Content="Show Version Info On Home Screen" Foreground="White" x:Name="VersionCheckbox" Margin="0,5,0,0" IsChecked="{Binding VersionInfo}"/>
-
-
+                <CheckBox Content="Launch App At Startup" Foreground="White" x:Name="LaunchAtStartupCheck" Margin="0,5,0,0" IsChecked="{Binding LaunchAtStartup}"/>
+                
 
                 <StackPanel VerticalAlignment="Bottom">
+                    <Button x:Name="ReleaseNotesBTN" Content="See Release Notes" Margin="5" Click="ReleaseNotesBTN_Click"/>
                     <Button x:Name="SaveBTN" Content="Save" Click="btnSave_Click" Margin="5,10,5,0"/>
+                    
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <Button x:Name="ResetButton" Foreground="Red" Width="180" Content="Reset Save File" Click="ResetClick" Margin="0,10,0,0"/>
                         <Button x:Name="Credits" Width="179" Content="Credits" Click="Credits_Click" Margin="10,10,0,0"/>
@@ -28,5 +32,8 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <local:LoadingSpinner x:Name="Spinner" HorizontalAlignment="Center" Visibility="Hidden" VerticalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

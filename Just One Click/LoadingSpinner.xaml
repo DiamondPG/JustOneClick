@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Just_One_Click.LoadingSpinner"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <!-- Define the gradient brush -->
+        <LinearGradientBrush x:Key="SpinnerGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="LightCoral" Offset="0"/>
+            <GradientStop Color="DarkCyan" Offset="1"/>
+        </LinearGradientBrush>
+
+        <!-- Define the storyboard -->
+        <Storyboard x:Key="SpinnerStoryboard" RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="SpinnerRotation"
+                             Storyboard.TargetProperty="Angle"
+                             From="0" To="360" Duration="0:0:1"/>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid>
+        <Ellipse Width="50" Height="50">
+            <Ellipse.Fill>
+                <!-- Use the gradient brush as the fill -->
+                <StaticResource ResourceKey="SpinnerGradient"/>
+            </Ellipse.Fill>
+            <Ellipse.RenderTransform>
+                <RotateTransform x:Name="SpinnerRotation" Angle="0"/>
+            </Ellipse.RenderTransform>
+            <!-- Set the render transform origin to the center -->
+            <Ellipse.RenderTransformOrigin>
+                <Point X="0.5" Y="0.5"/>
+            </Ellipse.RenderTransformOrigin>
+        </Ellipse>
+        <Ellipse Width="40" Height="40" Fill="Black"/>
+    </Grid>
+</UserControl>

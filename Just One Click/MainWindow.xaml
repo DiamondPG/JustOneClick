@@ -33,7 +33,9 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="20"/> 
         </Grid.RowDefinitions>
+
         
+        <TextBlock x:Name="OfflineTXT" Text="Offline" Visibility="Hidden" Foreground="Red" FontSize="18" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.RowSpan="2" Margin="0,0,0,0"/>
         <TextBlock x:Name="Title" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" Foreground="White" Text="Just One Click"/>
         <TextBlock x:Name="VersionTXT" FontSize="12" HorizontalAlignment="Center" Foreground="DarkGray" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,5" Text=""/>
         <Button Background="#1e1f21" Grid.ColumnSpan="2" Foreground="White" FontSize="20" Margin="5,0,5,0" Content="Launch" Name="LaunchBTN" Grid.Column="3" Grid.Row="3" Width="300" Height="50" Click="LaunchBTN_Click">
@@ -287,5 +289,6 @@
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>
+        <local:LoadingSpinner x:Name="Spinner" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Visibility="Visible"/>
     </Grid>
 </Window>

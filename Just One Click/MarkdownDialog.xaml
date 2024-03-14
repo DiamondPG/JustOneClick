@@ -1,0 +1,16 @@
+﻿<Window x:Class="Just_One_Click.MarkdownDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Just_One_Click"
+        mc:Ignorable="d"
+        Title="Release Notes" Height="450" Width="400"
+        WindowStartupLocation="CenterScreen"
+        >
+    <Grid>
+        <ScrollViewer>
+            <RichTextBox x:Name="richText" Background="#363645" Foreground="White" IsReadOnly="True"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

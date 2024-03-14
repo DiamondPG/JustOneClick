@@ -7,6 +7,13 @@ using Newtonsoft.Json;
 using static Google.Rpc.Context.AttributeContext.Types;
 using main = Just_One_Click.MainWindow;
 using auth = Just_One_Click.Auth;
+using Google.Apis.Download;
+using Google.Protobuf.Compiler;
+using Octokit;
+using System.Windows.Documents;
+using System.Windows.Media.Animation;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Just_One_Click
 {
@@ -16,13 +23,15 @@ namespace Just_One_Click
         public bool DeleteConfirmation { get; set; }
         public bool VersionInfo { get; set; }
         public bool isFirstBoot { get; set; }
+        public bool LaunchAtStartup { get; set; }
         public bool deauth { get; set; }
+        public bool isOffline { get; set; }
     }
 
     public partial class SettingsWindow : Window
     {
         string SettingsFilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        
+        string releaseNotes = "";
 
         private Settings _appSettings;
 
@@ -31,12 +40,58 @@ namespace Just_One_Click
             InitializeComponent();
             SettingsFilePath = SettingsFilePath + "\\Just One Click\\appsettings.json";
             Trace.WriteLine(SettingsFilePath);
-
+            
             // Load settings when the window is initialized
             LoadSettings();
             DataContext = _appSettings;
             UpdateUI();
+            HideSpinner();
+        }
+        private void ShowSpinner()
+        {
+            Spinner.Visibility = System.Windows.Visibility.Visible;
+            Spinner.StartSpin();
+        }
 
+        private void HideSpinner()
+        {
+            Spinner.StopSpin();
+            Spinner.Visibility = System.Windows.Visibility.Hidden;
+        }
+        private void CheckForUpdates()
+        {
+            
+            string owner = "DiamondPG";
+            string repo = "JustOneClick";
+            
+            
+            string accessToken = File.ReadAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/DiamondPG/.env");
+            Trace.WriteLine(accessToken);
+            var client = new GitHubClient(new Octokit.ProductHeaderValue("JustOneClick"));
+            client.Credentials = new Credentials(accessToken);
+
+            try
+            {
+                var releases = client.Repository.Release.GetAll(owner, repo).Result;
+
+                if (releases.Count > 0)
+                {
+                    var latestRelease = releases[0]; // Assuming releases are sorted by date, so the first release is the latest.
+                    Trace.WriteLine($"Latest release name: {latestRelease.Name}");
+                    releaseNotes = latestRelease.Body;
+                    string versionNumber = latestRelease.Name.Replace("v", "");
+                    
+                }
+                else
+                {
+                    Trace.WriteLine("No releases found for the repository.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Error retrieving releases: {ex.Message}");
+            }
+            
         }
 
         private void LoadSettings()
@@ -52,10 +107,11 @@ namespace Just_One_Click
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading settings: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                WritePlaceholderJson(SettingsFilePath);
             }
 
             // If settings couldn't be loaded, initialize with default values
-            WritePlaceholderJson(SettingsFilePath);
+            
         }
 
         
@@ -68,6 +124,23 @@ namespace Just_One_Click
                 string json = JsonConvert.SerializeObject(_appSettings, Formatting.Indented);
                 File.WriteAllText(SettingsFilePath, json);
                 Trace.WriteLine(json);
+                if(_appSettings.LaunchAtStartup == true)
+                {
+                    Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run", "JustOneClick", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\DiamondPG\\JustOneClick\\Updater.exe");
+                    Trace.WriteLine("Key creation attempted");
+                }
+                else
+                {
+                    try
+                    {
+                        using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true))
+                            key.DeleteValue("JustOneClick");
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine(ex.Message);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -75,7 +148,32 @@ namespace Just_One_Click
             }
         }
 
+        private async void ReleaseNotesBTN_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSpinner();
 
+            // Start the asynchronous task
+            await Task.Run(async () =>
+            {
+                CheckForUpdates();
+                ShowCustomMessageBox(releaseNotes);
+            });
+
+            // Task is completed, stop the spinner
+            Dispatcher.Invoke(() =>
+            {
+                HideSpinner();
+            });
+        }
+        private void ShowCustomMessageBox(string markdown)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MarkdownDialog dialog = new MarkdownDialog();
+                dialog.SetMarkdownContent(markdown);
+                dialog.ShowDialog();
+            });
+        }
 
 
         private void UpdateUI()
@@ -86,7 +184,7 @@ namespace Just_One_Click
                 DarkModeCheckbox.IsChecked = _appSettings.DarkModeEnabled;
                 VersionCheckbox.IsChecked = _appSettings.VersionInfo;
                 ConfirmationCheckbox.IsChecked = _appSettings.DeleteConfirmation;
-                
+                LaunchAtStartupCheck.IsChecked = _appSettings.LaunchAtStartup;
             }
             else
             {
@@ -94,6 +192,7 @@ namespace Just_One_Click
                 // You can provide default values or take appropriate action
                 DarkModeCheckbox.IsChecked = false;
                 ConfirmationCheckbox.IsChecked = false;
+                _appSettings.LaunchAtStartup = false;
 
                 MessageBox.Show("Failed to save settings", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

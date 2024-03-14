@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_26256C06473B4A5D9889A5E5B2688F6C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_3A91A473393E4A3BAE8D6BABF5BD79F8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,13 +27,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5AB76C291AA549A49C084CA497ADC677"
+        "MsmKey" = "8:_68E7DBE61AC348A08621D4AAF2193D5E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_77A2A85ADEA845BDBDE92886DD3EAC0C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7B0B6751A7B74091954D9796DF5FE2F3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -337,7 +337,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:JustOneClick"
         "ProductCode" = "8:{A0C48F61-546E-4CC0-A0A7-1C04403D73FE}"
-        "PackageCode" = "8:{E68E72F9-0F7F-4F7C-8712-2455E22E86C4}"
+        "PackageCode" = "8:{C4979319-C0A9-4B5D-AF10-B06CDB90B3AC}"
         "UpgradeCode" = "8:{03821D4E-5A8E-43D2-B82E-EB05440E073C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -457,7 +457,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_52B96EB534A946FB811E341781D1B2D7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8262B88AD48C431EB22FC53146961546"
             {
             "Name" = "8:Just One Click"
             "Arguments" = "8:"
@@ -465,13 +465,13 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5AB76C291AA549A49C084CA497ADC677"
-            "Folder" = "8:_013778BC76B242FC8D323BADF3594874"
+            "Target" = "8:_7B0B6751A7B74091954D9796DF5FE2F3"
+            "Folder" = "8:_B5FF9E7D7B324662B58A3714B36BA3F6"
             "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
             "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9B0772F5A00F4DFAAF9730173657E514"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BA1DF1122D884FF8BB8511F796D8C1A1"
             {
             "Name" = "8:Just One Click"
             "Arguments" = "8:"
@@ -479,8 +479,8 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_5AB76C291AA549A49C084CA497ADC677"
-            "Folder" = "8:_B5FF9E7D7B324662B58A3714B36BA3F6"
+            "Target" = "8:_7B0B6751A7B74091954D9796DF5FE2F3"
+            "Folder" = "8:_013778BC76B242FC8D323BADF3594874"
             "WorkingFolder" = "8:_6D9B38BD1CE64088961B035077591994"
             "Icon" = "8:_C89FE990D85745DD98E5E5C68B4C4885"
             "Feature" = "8:"
@@ -884,7 +884,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_26256C06473B4A5D9889A5E5B2688F6C"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_68E7DBE61AC348A08621D4AAF2193D5E"
             {
             "SourcePath" = "8:..\\Just One Click\\obj\\Release\\net6.0-windows10.0.22621.0\\apphost.exe"
             "TargetName" = "8:"
@@ -912,7 +912,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5AB76C291AA549A49C084CA497ADC677"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7B0B6751A7B74091954D9796DF5FE2F3"
             {
             "SourcePath" = "8:..\\Updater\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"

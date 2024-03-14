@@ -10,6 +10,8 @@
         "dependencies": {
           "FirebaseAuthentication.net": "4.1.0",
           "Google.Cloud.Firestore": "3.4.0",
+          "HtmlToXamlConverter": "1.0.5727.24510",
+          "Markdig": "0.35.0",
           "Microsoft.Toolkit.Uwp.Notifications": "7.1.3",
           "Newtonsoft.Json": "13.0.3",
           "Octokit": "9.1.0",
@@ -220,6 +222,22 @@
           "lib/net6.0/Grpc.Net.Common.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.53.0.0"
+          }
+        }
+      },
+      "HtmlToXamlConverter/1.0.5727.24510": {
+        "runtime": {
+          "lib/net45/HtmlToXamlConverter.dll": {
+            "assemblyVersion": "1.0.5727.24510",
+            "fileVersion": "1.0.5727.24510"
+          }
+        }
+      },
+      "Markdig/0.35.0": {
+        "runtime": {
+          "lib/net6.0/Markdig.dll": {
+            "assemblyVersion": "0.35.0.0",
+            "fileVersion": "0.35.0.0"
           }
         }
       },
@@ -462,6 +480,20 @@
       "sha512": "sha512-AcjscRF+QNpCZB2ITbl1b2zsCWM281+qPNTwLur+bA2FuhEvywfUZgJaKsP1NanOvkBetO1ai16LWcqnnUKZEA==",
       "path": "grpc.net.common/2.53.0",
       "hashPath": "grpc.net.common.2.53.0.nupkg.sha512"
+    },
+    "HtmlToXamlConverter/1.0.5727.24510": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vtjP96QTuUV0PMZHOUXTaxTeSRBJcgWPjb+5sAOrLbFzd6v815/9BgIQcVIguhEmRpeZthtpQjOoTFdnQGblbg==",
+      "path": "htmltoxamlconverter/1.0.5727.24510",
+      "hashPath": "htmltoxamlconverter.1.0.5727.24510.nupkg.sha512"
+    },
+    "Markdig/0.35.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OedDgytYj2SwnfEW1YB3SsoV9fJwQSCOBFYid6yShaeSBRxT27n5DVpig35vhE6UKB3R2z/dc1oJwc366MpiCg==",
+      "path": "markdig/0.35.0",
+      "hashPath": "markdig.0.35.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/6.0.0": {
       "type": "package",

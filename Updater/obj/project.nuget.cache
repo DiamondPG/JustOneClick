@@ -1,11 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "XQsrtccvv1B2UWXyoqHRWlQiB4E0fXZUjk/sTOzeZe9nu0E6Y0l35mqqBUMBDBzNGEDLcnM0RxUnSVp4PGSUZQ==",
+  "dgSpecHash": "SO3KS4X+sRwCdOTnzKXmvnM/XB44dVK837qzAdFRXhanNaz3fNrimFuazNTIgZ8mV6Ly7uBDvFvI3YVzLU6xgA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Harma\\source\\repos\\Just One Click\\Updater\\Updater.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Harma\\.nuget\\packages\\htmltoxamlconverter\\1.0.5727.24510\\htmltoxamlconverter.1.0.5727.24510.nupkg.sha512",
+    "C:\\Users\\Harma\\.nuget\\packages\\markdig\\0.35.0\\markdig.0.35.0.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Harma\\.nuget\\packages\\octokit\\9.1.0\\octokit.9.1.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'HtmlToXamlConverter 1.0.5727.24510' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "HtmlToXamlConverter",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

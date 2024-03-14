@@ -6,6 +6,22 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
+      "HtmlToXamlConverter/1.0.5727.24510": {
+        "runtime": {
+          "lib/net45/HtmlToXamlConverter.dll": {
+            "assemblyVersion": "1.0.5727.24510",
+            "fileVersion": "1.0.5727.24510"
+          }
+        }
+      },
+      "Markdig/0.35.0": {
+        "runtime": {
+          "lib/net6.0/Markdig.dll": {
+            "assemblyVersion": "0.35.0.0",
+            "fileVersion": "0.35.0.0"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -25,6 +41,20 @@
     }
   },
   "libraries": {
+    "HtmlToXamlConverter/1.0.5727.24510": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vtjP96QTuUV0PMZHOUXTaxTeSRBJcgWPjb+5sAOrLbFzd6v815/9BgIQcVIguhEmRpeZthtpQjOoTFdnQGblbg==",
+      "path": "htmltoxamlconverter/1.0.5727.24510",
+      "hashPath": "htmltoxamlconverter.1.0.5727.24510.nupkg.sha512"
+    },
+    "Markdig/0.35.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OedDgytYj2SwnfEW1YB3SsoV9fJwQSCOBFYid6yShaeSBRxT27n5DVpig35vhE6UKB3R2z/dc1oJwc366MpiCg==",
+      "path": "markdig/0.35.0",
+      "hashPath": "markdig.0.35.0.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.3": {
       "type": "package",
       "serviceable": true,

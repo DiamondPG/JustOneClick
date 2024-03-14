@@ -2,6 +2,28 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "HtmlToXamlConverter/1.0.5727.24510": {
+        "type": "package",
+        "compile": {
+          "lib/net45/HtmlToXamlConverter.dll": {}
+        },
+        "runtime": {
+          "lib/net45/HtmlToXamlConverter.dll": {}
+        }
+      },
+      "Markdig/0.35.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Markdig.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Markdig.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Newtonsoft.Json/13.0.3": {
         "type": "package",
         "compile": {
@@ -31,6 +53,41 @@
     }
   },
   "libraries": {
+    "HtmlToXamlConverter/1.0.5727.24510": {
+      "sha512": "vtjP96QTuUV0PMZHOUXTaxTeSRBJcgWPjb+5sAOrLbFzd6v815/9BgIQcVIguhEmRpeZthtpQjOoTFdnQGblbg==",
+      "type": "package",
+      "path": "htmltoxamlconverter/1.0.5727.24510",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "htmltoxamlconverter.1.0.5727.24510.nupkg.sha512",
+        "htmltoxamlconverter.nuspec",
+        "lib/net45/HtmlToXamlConverter.dll"
+      ]
+    },
+    "Markdig/0.35.0": {
+      "sha512": "OedDgytYj2SwnfEW1YB3SsoV9fJwQSCOBFYid6yShaeSBRxT27n5DVpig35vhE6UKB3R2z/dc1oJwc366MpiCg==",
+      "type": "package",
+      "path": "markdig/0.35.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Markdig.dll",
+        "lib/net462/Markdig.xml",
+        "lib/net6.0/Markdig.dll",
+        "lib/net6.0/Markdig.xml",
+        "lib/net8.0/Markdig.dll",
+        "lib/net8.0/Markdig.xml",
+        "lib/netstandard2.0/Markdig.dll",
+        "lib/netstandard2.0/Markdig.xml",
+        "lib/netstandard2.1/Markdig.dll",
+        "lib/netstandard2.1/Markdig.xml",
+        "markdig.0.35.0.nupkg.sha512",
+        "markdig.nuspec",
+        "markdig.png",
+        "readme.md"
+      ]
+    },
     "Newtonsoft.Json/13.0.3": {
       "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "type": "package",
@@ -78,6 +135,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "HtmlToXamlConverter >= 1.0.5727.24510",
+      "Markdig >= 0.35.0",
       "Newtonsoft.Json >= 13.0.3",
       "Octokit >= 9.1.0"
     ]
@@ -121,6 +180,14 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "HtmlToXamlConverter": {
+            "target": "Package",
+            "version": "[1.0.5727.24510, )"
+          },
+          "Markdig": {
+            "target": "Package",
+            "version": "[0.35.0, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.3, )"
@@ -152,5 +219,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'HtmlToXamlConverter 1.0.5727.24510' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "HtmlToXamlConverter",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }
