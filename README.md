@@ -1,5 +1,5 @@
 # JustOneClick
-[![Early Access Version](https://img.shields.io/badge/Beta%20Version%20-%20v0.0.4%20-%20orange)](https://github.com/DiamondPG/JustOneClick/releases) [![Static Badge](https://img.shields.io/badge/Stable%20Version%20-%20TBD%20-%20red)](https://github.com/DiamondPG/JustOneClick/releases)
+[![Early Access Version](https://img.shields.io/badge/Beta%20Version%20-%20v0.1.0%20-%20orange)](https://github.com/DiamondPG/JustOneClick/releases) [![Static Badge](https://img.shields.io/badge/Stable%20Version%20-%20TBD%20-%20red)](https://github.com/DiamondPG/JustOneClick/releases)
 
 ## Launch all of your applications in Just One Click
 ![UI](https://github.com/DiamondPG/JustOneClick/assets/111537024/b58f3e68-06e0-41a5-946a-9ab864195b34)
@@ -10,5 +10,5 @@ With Just One Click you can launch large lists of apps. You can adjust the delay
 
 # Downloads:
 
-- [![Early Access Version](https://img.shields.io/badge/Beta%20Version%20-%20v0.0.4%20-%20orange)](https://github.com/DiamondPG/JustOneClick/releases)
+- [![Early Access Version](https://img.shields.io/badge/Beta%20Version%20-%20v0.1.0%20-%20orange)](https://github.com/DiamondPG/JustOneClick/releases)
 - [![Static Badge](https://img.shields.io/badge/Stable%20Version%20-%20TBD%20-%20red)](https://github.com/DiamondPG/JustOneClick/releases)
